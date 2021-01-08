@@ -27,8 +27,8 @@ create table ARTICULO(
 
 alter table ARTICULO add constraint FK_ART_FAB foreign key (codFabricante) references FABRICANTE (codFabricante);
 
-alter table FABRICANTE modify pais varchar(32) default ('España');
+-- alter table FABRICANTE modify pais varchar(32) default ('España');
 
-alter table FABRICANTE drop primary key, modify nombre varchar(32) primary key;
+-- alter table FABRICANTE drop primary key, modify nombre varchar(32) primary key;
 
-alter table FABRICANTE disable keys;
+-- alter table FABRICANTE disable keys;
