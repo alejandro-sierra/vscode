@@ -1,0 +1,121 @@
+    <!--Ejercicio 1
+<?xml version="1.0" encoding="UTF-8">
+< frutas >
+    < fruta >
+        < nombre >cereza< nombre \>
+    < fruta \>
+    < fruta >
+        < nombre >naranja< nombre \>
+    < fruta \>
+< frutas \> -->
+
+    <!-- Correccion 2 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<frutas>
+    <fruta>
+        <nombre>cereza</nombre>
+    </fruta>
+    <fruta>
+        <nombre>naranja</nombre>
+    </fruta>
+</frutas>
+<!-- He corrido los espacios en las etiquetas, tambien he puesto bien las etiquetas de cierre y he definido bien la declaracion del documento. -->
+
+
+<!--   Ejercicio 2
+<?xml version="1.0" encoding="UTF-8"?>
+<terrestres>
+    <vehiculo>bicicleta<vehiculo>
+    <vehiculo>coche<vehiculo>
+    <vehiculo>tractor<vehiculo>
+<acuaticos>
+    <vehiculo>canoa<vehiculo>
+<aereos>
+    <vehiculo>avioneta<vehiculo>
+    <vehiculo>helicóptero<vehiculo> -->
+
+    <!-- Correccion 2 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<terrestres>
+    <vehiculo>bicicleta</vehiculo>
+    <vehiculo>coche</vehiculo>
+    <vehiculo>tractor</vehiculo>
+</terrestres>
+<acuaticos>
+    <vehiculo>canoa</vehiculo>
+</acuaticos>
+<aereos>
+    <vehiculo>avioneta</vehiculo>
+    <vehiculo>helicóptero</vehiculo>
+</aereos>
+<!-- He definido bien la declaracion del documento, he cerrado las etiquetas de cierre que estaban sin cerrar y he creado las etiquetas de cierre que faltaban. -->
+
+
+    <!-- Ejercicio 3
+<?xml version="1.0" encoding="UTF-8"?>
+<figuras>
+    <figura plana>
+    <nombre>cuadrado</nombre>
+    </lados 4>
+</figura>
+    <figura plana>
+    <nombre>triángulo</nombre>
+    </lados 3>
+</figura>
+<figura tridimensional>
+    <nombre>cubo</nombre>
+    </aristas 12>
+    </caras 6>
+</figura>
+</figuras> -->
+
+    <!-- Correccion 3 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<figuras>
+    <figura-plana>
+    <nombre>cuadrado</nombre>
+    <lados valor="4"/>
+</figura-plana>
+    <figura-plana>
+    <nombre>triángulo</nombre>
+    <lados valor="3"/>
+</figura-plana>
+<figura-tridimensional>
+    <nombre>cubo</nombre>
+    <aristas valor="12"/>
+    <caras valor="6"/>
+</figura-tradicional>
+</figuras>
+<!-- Les que quitado los espacios a las etiquetas y de definido las etiquetas de lados, aristas y caras. -->
+
+
+<!-- Ejercicio 4
+<?Xml version="1,0" encoding="UTF8"?>
+<triangulo base="7"altura="5">
+<triangulo base="2"altura="6">
+<triangulo base="3"altura="3"> -->
+
+    <!-- Correccion 4 -->
+<?xml version="1,0" encoding="UTF8"?>
+<triangulo base="7" altura="5"/>
+<triangulo base="2" altura="6"/>
+<triangulo base="3" altura="3"/>
+<!-- He cerrado las etiquetas que estaban sin cerrar. -->
+
+
+<!-- Ejercicio 5
+<?xml version="1.0" encoding="UTF-8"?>
+<numeros>
+    <1 letra="u" letra="n" letra="o">1</>
+    <2 letra="d" letra="o" letra="s">22</>
+    <6 letra="s" letra="e" letra="i" letra="s">666666</>
+</numeros> -->
+
+    <!-- Correccion 5  -->
+<?xml version="1.0" encoding="UTF-8"?>
+<numeros>
+    <uno letra="u" letra="n" letra="o">1</uno>
+    <dos letra="d" letra="o" letra="s">2</dos>
+    <seis letra="s" letra="e" letra="i" letra="s">6</seis>
+</numeros>
+<!-- He definido bien las etiquetas, poniendo le bien en nombre de las etiquetas(no pueden empezar por numeros) y cerrando las,  y he separado los atributos. -->

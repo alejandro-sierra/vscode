@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<message>
+    <sender>
+        <name>Pepito Perez</name>
+        <email>pepito.perez@gmail.com</email>
+    </sender>
+    <addressee>
+        <name>Pepita Pérez</name>
+        <email>pepita.perez@gmail.com</email>
+    </addressee>
+    <affair></affair>
+    <content>
+        <introduction>Buenos días<introduction>
+        <body>Feliz Navidad</body>
+        <end>Saludos.</end>
+    </content>
+</message>
