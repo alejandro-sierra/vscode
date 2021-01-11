@@ -24,5 +24,7 @@ insert into EMPLEADO values ("12385468F","Manolo",900,"C/Madrid 3","ALM"),
                             ("29475467I","Aitor",2900,"C/Las maldivas","DIR"),
                             ("29457562J","Ales",1100,"C/Melchor Botella 23","CONTA");
 
---para comparar los datos
---select * from DEPARTAMENTO
+
+select * from DEPARTAMENTO; //esto es para ver la informacion de la tabla
+
+truncate table DEPARTAMENTO; //para borrar la informacion de la tabla
