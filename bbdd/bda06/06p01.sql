@@ -25,6 +25,6 @@ insert into EMPLEADO values ("12385468F","Manolo",900,"C/Madrid 3","ALM"),
                             ("29457562J","Ales",1100,"C/Melchor Botella 23","CONTA");
 
 
-select * from DEPARTAMENTO; //esto es para ver la informacion de la tabla
+-- select * from DEPARTAMENTO; //esto es para ver la informacion de la tabla
 
-truncate table DEPARTAMENTO; //para borrar la informacion de la tabla
+-- truncate table DEPARTAMENTO; //para borrar la informacion de la tabla
