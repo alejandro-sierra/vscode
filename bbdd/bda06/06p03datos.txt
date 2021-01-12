@@ -1,10 +1,10 @@
-null    Intel  EEUU
-null    AMD    EEUU
-null    HP India
-null    Lenovo Francia
-null    BMAX   China
-null    LG Corea
-null    TP-LINK    Espanya
-null    Hacendado  null
-null    Ugreen America
-null    SanDisk    null
+Intel   EEUU
+AMD EEUU
+HP India
+Lenovo Francia
+BMAX     China
+LG Corea
+TP-LINK Espanya
+Hacendado   null
+Ugreen America
+SanDisk null
