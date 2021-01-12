@@ -1,7 +1,8 @@
+source ../bda05/ejercicio06_07.sql;
 use ejercicio06_07;
 
-truncate table FABRICANTE;
-truncate table ARTICULO;
+-- truncate table FABRICANTE;
+-- truncate table ARTICULO;
 
 
 insert into FABRICANTE values (null,"Pepe e Hijos","Espanya");
