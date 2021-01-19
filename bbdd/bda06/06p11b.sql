@@ -1,0 +1,1 @@
+alter table PAIS add fechaIngreso date default '10/01/01';
