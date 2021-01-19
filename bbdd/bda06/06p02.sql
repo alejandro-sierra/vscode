@@ -19,3 +19,5 @@ insert into ARTICULO set codigo="art05",codFabricante=1,peso=5,categoria="Segund
 
 insert into FABRICANTE values (null, "Xiaomi","China");
 insert into ARTICULO values ("art06",LAST_INSERT_ID(),13,"Tercera",34,11,3);
+
+load data local infile '06p03datos.txt' into table FABRICANTE fields terminated by '\t' lines terminated by '\n';

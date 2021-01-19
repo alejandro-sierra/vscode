@@ -9,8 +9,3 @@ insert into LIBRO values (null,"Reina Roja","J. Gómez-Jurado",33,"NOV");
 
 insert into PRESTAMO set codLibro=1, codSocio=1,fentrega="20/10/15";
 insert into PRESTAMO set codLibro=2, codSocio=1,fentrega="20/12/25";
-
-
--- load data local infile '/home/alejandro/Escritorio/vscode/bbdd/bda06/06p03datos.txt' into table FABRICANTE fields terminiated by '\t';
-
--- load data local infile '/home/alejandro/Escritorio/vscode/bbdd/bda06/06p03datos.txt' into table FABRICANTE terminiated by '\t';

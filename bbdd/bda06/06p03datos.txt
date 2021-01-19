@@ -1,10 +1,10 @@
-Intel   EEUU
-AMD EEUU
-HP India
-Lenovo Francia
-BMAX     China
-LG Corea
-TP-LINK Espanya
-Hacendado   null
-Ugreen America
-SanDisk null
+LAST_INSERT_ID()	Intel	EEUU
+LAST_INSERT_ID()	AMD	EEUU
+LAST_INSERT_ID()	HP	India
+LAST_INSERT_ID()	Lenovo	Francia
+LAST_INSERT_ID()	BMAX	China
+LAST_INSERT_ID()	LG	Corea
+LAST_INSERT_ID()	TP-LINK	Espanya
+LAST_INSERT_ID()	Hacendado	America
+LAST_INSERT_ID()	Ugreen	China
+LAST_INSERT_ID()	SanDisk	America
