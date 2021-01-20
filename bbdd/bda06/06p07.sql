@@ -1,4 +1,5 @@
 source 06p05.sql;
+--no funciona, integridad referencial
 delete from LIBRO where titulo='Historia de España';
 alter table PRESTAMO drop constraint FK_PRES_LIB;
 

@@ -1,22 +1,25 @@
-drop database idiomas;
+drop database idiomas if exists;
 create database if not exists idiomas;
 use idiomas;
 
 create table CAPITAL(
-    idCapital int (11) primary key,
-    nombre varchar (255)
+    idCapital int (11),
+    nombre varchar (255),
+    constraint PK_CAP primary key (idCapital)
 );
 
 create table PAIS(
-    idPais int (11) primary key,
+    idPais int (11),
     nombre varchar (64),
     capital int (11),
+    constraint PK_PAI primary key (idPais),
     constraint FK_CAP_PAIS foreign key (capital) references CAPITAL (idCapital)
 );
 
 create table IDIOMA(
-    idIdioma int (11) primary key,
-    nombre varchar (255)
+    idIdioma int (11),
+    nombre varchar (255),
+    constraint PK_IDI primary key (idIdioma)
 );
 
 create table IDIOMAPAIS(
@@ -28,8 +31,9 @@ create table IDIOMAPAIS(
 );
 
 create table POBLACION(
-    pais int (11) primary key,
+    pais int (11),
     anyo year(4),
     poblacion int (11),
+    constraint PK_POB primary key (pais, anyo),
     constraint FK_POB_PAI foreign key (pais) references PAIS (idPais)
 );
