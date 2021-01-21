@@ -1,5 +1,34 @@
-constraint
+--crear usuarios
 
-foreign key
+create user 'severo'@'localhost' identified by 'severo';
+grant all privileges on *.* to 'severo'@'localhost' whit grant option;
+flush privileges;
 
-mirar la creacion de las tablas
+--crear bbdd
+create database nombre_bbdd;
+create database if not exists nombre_bbdd;
+
+--borrar bbdd
+drop database nombre_bbdd;
+drop database if exists nombre_bbdd;
+
+--alter
+alter table nombre_viejo rename to nombre_nuevo; --> cambiar el nombre de una tabla
+alter table nombre_bbdd add...;
+alter table nombre_bbdd drop...;
+alter table nombre_bbdd modify...;
+
+alter table nombre_bbdd disable keys;
+alter table nombre_bbdd enable keys;
+
+--INSERCION DE DATOS
+insert into nombre_tabla values (dato1, dato2, dato3, null, dato5);
+
+insert into nombre_tabla values (dato1, dato2, dato3, null, dato5),
+                                (dato1, dato2, dato3, dato4, dato5),
+                                (dato1, null, dato3, dato4, dato5),
+                                (dato1, null, dato3, null, dato5);
+
+
+intert into nombre_tabla set nombre='Juan', apellido1='Lopez', apellido2='Sierra';
+
