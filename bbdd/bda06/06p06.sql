@@ -3,7 +3,7 @@ alter table LIBRO drop constraint FK_PRES_LIB;
 alter table LIBRO modify codigo int unsigned unique;
 alter table LIBRO drop primary key;
 alter table LIBRO add constraint primary key PK_LIB (titulo);
-alter table LIBRO add constraint FK_PRES_LIB foreing key (codLibro) references LIBRO (codigo);
+alter table LIBRO add constraint FK_PRES_LIB foreign key (codLibro) references LIBRO (codigo);
 
 
 

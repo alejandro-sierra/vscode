@@ -1,0 +1,5 @@
+constraint
+
+foreign key
+
+mirar la creacion de las tablas
