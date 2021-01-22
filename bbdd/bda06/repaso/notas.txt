@@ -1,3 +1,19 @@
+--load data
+load data local infile 'ruta relativa' into table nombre_tabla fields terminated by ',' lines terminated by '\n';
+
+--insercion de datos
+insert into nombre_tabla values (dato1, dato2, dato3, null, dato5);
+
+insert into nombre_tabla values (dato1, dato2, dato3, null, dato5),
+                                (dato1, dato2, dato3, dato4, dato5),
+                                (dato1, null, dato3, dato4, dato5),
+                                (dato1, null, dato3, null, dato5);
+
+
+intert into nombre_tabla set nombre='Juan', apellido1='Lopez', apellido2='Sierra';
+
+
+
 --crear usuarios
 
 create user 'severo'@'localhost' identified by 'severo';
@@ -20,20 +36,6 @@ alter table nombre_bbdd modify...;
 
 alter table nombre_bbdd disable keys;
 alter table nombre_bbdd enable keys;
-
---insercion de datos
-insert into nombre_tabla values (dato1, dato2, dato3, null, dato5);
-
-insert into nombre_tabla values (dato1, dato2, dato3, null, dato5),
-                                (dato1, dato2, dato3, dato4, dato5),
-                                (dato1, null, dato3, dato4, dato5),
-                                (dato1, null, dato3, null, dato5);
-
-
-intert into nombre_tabla set nombre='Juan', apellido1='Lopez', apellido2='Sierra';
-
---load data
-load data local infile 'ruta relativa' into table nombre_tabla fields terminated by ',' lines terminated by '\n';
 
 --actualizacion y borrado de datos
 update nombre_tabla set lo_que_quieres_actualizar where donde_lo_actualizas
