@@ -21,7 +21,7 @@ alter table nombre_bbdd modify...;
 alter table nombre_bbdd disable keys;
 alter table nombre_bbdd enable keys;
 
---INSERCION DE DATOS
+--insercion de datos
 insert into nombre_tabla values (dato1, dato2, dato3, null, dato5);
 
 insert into nombre_tabla values (dato1, dato2, dato3, null, dato5),
@@ -32,3 +32,14 @@ insert into nombre_tabla values (dato1, dato2, dato3, null, dato5),
 
 intert into nombre_tabla set nombre='Juan', apellido1='Lopez', apellido2='Sierra';
 
+--load data
+load data local infile 'ruta relativa' into table nombre_tabla fields terminated by ',' lines terminated by '\n';
+
+--actualizacion y borrado de datos
+update nombre_tabla set lo_que_quieres_actualizar where donde_lo_actualizas
+update ALUMNO set fecha_nacimiento='1976/12/23' where nombre='Antonia' and apellido1='López';
+	cambio la fecha de la persona llamada Antonia
+	
+delete from nombre_tabla where lo_que_quiero_borrar;
+delete from PROFESOR where nombre='Laura' and apellido1='Jiménez';
+	borro a Laura
