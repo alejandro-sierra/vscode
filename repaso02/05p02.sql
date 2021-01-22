@@ -29,4 +29,5 @@ alter table FABRICANTE drop primary key;
 alter table FABRICANTE add constraint PK_FAB primary key (nombre);
 alter table ARTICULO add constraint FK_ART_FAB foreign key (codigo_fabricante) references FABRICANTE (codigo_fabricante);
 
+
 load data local infile 'datos.txt' into table FABRICANTE fields terminated by ',' lines terminated by '\n';

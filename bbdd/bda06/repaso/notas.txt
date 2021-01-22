@@ -10,7 +10,7 @@ insert into nombre_tabla values (dato1, dato2, dato3, null, dato5),
                                 (dato1, null, dato3, null, dato5);
 
 
-intert into nombre_tabla set nombre='Juan', apellido1='Lopez', apellido2='Sierra';
+insert into nombre_tabla set nombre='Juan', apellido1='Lopez', apellido2='Sierra';
 
 
 

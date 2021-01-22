@@ -78,20 +78,23 @@ alter table PROFESOR modify gana int(16);
 alter table CURSO modify fecha_inicio date not null;
 
 --Ejercicio10
-alter table CURSO drop constraint FK_CUR_PROF;
-alter table PROFESOR drop primary key;
-alter table PROFESOR add constraint primary key PK_PROF (nombre, apellido1, apellido2);
-alter table CURSO add constraint FK_CUR_PROF foreign key (dni_profesor) references PROFESOR (dni);
+alter table PROFESOR drop constraint PK_PROF;
+alter table PROFESOR modify dni varchar(16) unique, add constraint PK_PROF primary key (nombre, apellido1,apellido2);
+
+-- alter table CURSO drop constraint FK_CUR_PROF;
+-- alter table PROFESOR drop primary key;
+-- alter table PROFESOR add constraint primary key PK_PROF (nombre, apellido1, apellido2);
+-- alter table CURSO add constraint FK_CUR_PROF foreign key (dni_profesor) references PROFESOR (dni);
 
 --Ejercicio11
--- insert into ALUMNO values ('Juan','Arch','López','32432455','Pueta Negra, 4','Ing. Informática',7500);
+-- insert into ALUMNO values ('Juan','Arch','López','32432455','Pueta Negra, 4','Ing. Informática',null);
 -- insert into ALUMNO ('María','Jaén','Sevilla','789678','Martos 5','M','1977/03/10','3');
 
 --Ejercicio12
-update ALUMNO set fecha_nacimiento='1976/12/23' where nombre='Antonia' and apellido1='López';
+update ALUMNO set fecha_nacimiento='1976/12/23' where nombre='Antonia' and apellido1='López'; 
 
 --Ejercicio13
 -- update ALUMNO set curso=5 where nombre='Antonia' and apellido1='López';
 
 --Ejercicio14
-delete from PROFESOR where nombre='Laura' and apellido1='Jiménez';
+delete from PROFESOR where nombre='Laura' apellido1='Jimenez';
