@@ -1,0 +1,10 @@
+0,Intel,EEUU
+1,AMD,EEUU
+2,HP,India
+3,Lenovo,Francia
+4,BMAX,China
+5,LG,Corea
+6,TP-LINK,Espanya
+7,Hacendado,America
+8,Ugreen,China
+9,SanDisk,America
