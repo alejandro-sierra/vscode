@@ -1,0 +1,12 @@
+2. 
+show databases;
+show tables;
+describe nombre_tabla;
+source nombre_archivo;
+use nombre_tabla;
+
+
+3.
+Que se te olvide poner el where en el delete from :), lo que borraria todos los datos de dicha tabla.
+
+Gran cancion: https://www.youtube.com/watch?v=i_cVJgIz_Cs&t=2s
