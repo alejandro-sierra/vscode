@@ -5,10 +5,14 @@ select NomEmp, SalEmp from empleado;
 select NomEmp, SalEmp from empleado where CodEmp=1;
 
 -- 3. Listar el nombre y el complemento familiar (= salario * no hijos * 4 /100) de los empleados con hijos.
+select NomEmp, truncate(SalEmp*NumHi*4/100,2) as 'complemento familiar' from empleado where NumHi>0;
 
 -- 4. Listar todos los datos de habilidades.
+select * from habilidad;    
 
--- 5. Listar sin repeticiones el código de todos los departamentos que tengan trabajadores incorporados antes del 1/1/92 (utilizar ' para encerrar la constante de fecha). 
+-- 5. Listar sin repeticiones el código de todos los departamentos que tengan trabajadores incorporados antes 
+--del 1/1/92 (utilizar ' para encerrar la constante de fecha). 
+select distinct codDep, FecInEmp from empleado where FecInEmp<'1992/01/01';  
 
 -- 6.Listar el nombre de los trabajadores que no tienen extensión telefónica.
 

@@ -11,7 +11,7 @@ select * from producto;
 select nombre, round(precio*1.2), precio from producto;
 
 -- 5.Lista el nombre de los productos, el precio en euros y el precio en dólares estadounidenses(USD). Utiliza los siguientes alias para las columnas: nombre de producto, euros, dólares.
-select nombre as 'nombre de producto', truncate(precio*1.2,2) as euros, precio  as dolares from producto;
+select nombre as 'nombre de producto', truncate(precio*0.82,2) as euros, precio  as dolares from producto;
 
 -- 6.Lista los nombres y los precios de todos los productos de la tabla producto, convirtiendo los nombres a mayúscula.
 select upper(nombre), precio from producto;
@@ -29,7 +29,7 @@ select nombre, round(precio) from producto;
 select nombre, truncate(precio,0) from producto;
 
 -- 11.Lista el código de los fabricantes que tienen productos en la tabla producto.
-select codigo_fabricante from producto;
+select distinct codigo_fabricante from producto;
 
 -- 12.Lista el código de los fabricantes que tienen productos en la tabla producto, eliminando los códigos que aparecen repetidos.
 select distinct codigo_fabricante from producto where codigo_fabricante is not null;
@@ -41,7 +41,7 @@ select nombre from fabricante order by nombre;
 select nombre from fabricante order by nombre desc;
 
 -- 15.Lista los nombres de los productos ordenados en primer lugar por el nombre de forma ascendente y en segundo lugar por el precio de forma descendente.
-select nombre from producto order by nombre and nombre desc;
+select nombre from producto order by nombre, precio desc;
 
 -- 16.Devuelve una lista con las 5 primeras filas de la tabla fabricante.
 select * from fabricante limit 5;
@@ -65,7 +65,7 @@ select nombre from producto where precio<=120;
 select nombre from producto where precio>=400;
 
 -- 23.Lista el nombre de los productos que no tienen un precio mayor o igual a 400€.
-select nombre from producto where precio<=400;
+select nombre from producto where not (precio>=400);
 
 -- 24.Lista todo  los productos que tengan un precio entre 80€ y 300€. Sin utilizar el operador BETWEEN.
 select * from producto where precio>=80 and precio<=300;
@@ -86,7 +86,7 @@ select * from producto where codigo in (1,3,5);
 select nombre, truncate(precio*100,2) as centimos from producto;
 
 -- 30.Lista los nombres de los fabricantes cuyo nombre empiece por la letra S.
-select nombre from fabricante where nombre like 'S%';
+select nombre from fabricante where upper(nombre) like 'S%'; --lo pasar primero a mayusculas para que lo encuentre seguro
 
 -- 31.Lista los nombres de los fabricantes cuyo nombre termine por la vocal e.
 select nombre from fabricante where nombre like '%e';
@@ -104,4 +104,4 @@ select nombre from producto where nombre like '%Portátil%';
 select nombre, precio from producto where nombre like '%Monitor%' and precio<215;
 
 -- 36.Lista el nombre y el precio de todos los productos que tengan un precio mayor o igual a 180€.Ordene el resultado en primer lugar por el precio (en orden descendente) y en segundo lugarpor el nombre (en orden ascendente).
-select nombre, precio from producto where precio>=180 order by precio desc;  
+select nombre, precio from producto where precio>=180 order by precio desc, nombre asc;  
