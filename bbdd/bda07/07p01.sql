@@ -1,4 +1,3 @@
--- select * from  empleado;
 -- 1. Listar el nombre de los empleados junto con su salario.
 select NomEmp, SalEmp from empleado;
 
