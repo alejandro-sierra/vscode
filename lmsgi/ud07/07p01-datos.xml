@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<factura n_fac="999" xsi:schemaLocation="./07p01-validador.xsd">
 
+<factura n_fac="999" xsi:schemaLocation="./07p01-validador.xsd">
   <datos_empresa>
     <nombre>Equipos Digitales S.L.</nombre>
     <direccion>Av. Valladolid</direccion>
