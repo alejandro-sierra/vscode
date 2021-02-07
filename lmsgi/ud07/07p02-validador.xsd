@@ -1,16 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-<xs:element name="cartelera">
-    <xs:complexType>
-        <xs:sequence>    
-            <xs:attribute name="n_fac" use="required">
-                <xs:simpleType>
-                    <xs:restriction base="xs:integer">
-                        <xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9]"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        <xs:sequence>    
-    <xs:complexType>
+<!--*****Tipos Simples*****-->
+<!--Forma de pago-->
+<xs:simpleType name="FormaDePago">
+<xs:restriction base="xs:string">
+<xs:enumeration value="efectivo"/>
+<xs:enumeration value="tarjeta"/>
+<xs:enumeration value="plazos"/>
+</xs:restriction>
+</xs:simpleType>
+<!--Importe Total-->
+<xs:simpleType name="ImporteTotal">
+<xs:restriction base="xs:integer">
+</xs:restriction>
+</xs:simpleType>
+<!--Fecha Factura-->
+<xs:simpleType name="FechaFactura">
+<xs:restriction base="xs:date">
+</xs:restriction>
+</xs:simpleType>
+<!--Valoracion-->
+<xs:simpleType name="Valoracion">
+<xs:restriction base="xs:integer">
+<xs:pattern maxOccurs="5" minOccurs="0"/>
+</xs:restriction>
+</xs:simpleType>
+<!--IdPelicula-->
+<xs:simpleType name="IdPelicula">
+<xs:restriction base="xs:positiveInteger">
+<xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9]"/>
+</xs:restriction>
+</xs:simpleType>
+
+
+<!--*****Elementos Simples*****-->
+<!--Tipo String-->
+<xs:element name="nombre" type="xs:string"/>
+<xs:element name="apellido1" type="xs:string"/>
+<xs:element name="apellido2" type="xs:string"/>
+<xs:element name="dni" type="xs:string"/>
+<xs:element name="telefono" type="xs:string"/>
+<xs:element name="direccion" type="xs:string"/>
+<xs:element name="poblacion" type="xs:string"/>
+<xs:element name="cod_postal" type="xs:string"/>
+<xs:element name="titulo" type="xs:string"/>
+<xs:element name="genero" type="xs:string"/>
+<xs:element name="autor" type="xs:string"/>
+<!--Tipo Integer-->
+<xs:element name="precio" type="xs:integer"/>
+<xs:element name="pvp" type="xs:integer"/>
+<xs:element name="duracion" type="xs:integer"/>
+<xs:element name="fec_salida" type="xs:integer"/>
+<!--Otros Tipos-->
+<xs:element name="fecha" type="xs:date"/>
+<xs:element name="fec_devolucion" type="xs:date"/>
+
+<xs:element name="extra" type="xs:boolean"/>
+
+
+<!--*****Elementos Complejos*****-->
+<!--IdCliente-->
+<xs:complexType name="id_cliente">
+<xs:restriction base="xs:positiveInteger">
+<xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9]"/>
+</xs:restriction>
+</xs:complexType>
+<!--Elemento Tipo-->
+<xs:complexType name="tipo">
+<xs:restriction base="xs:string">
+<xs:enumeration value="DVD"/>
+<xs:enumeration value="BlueRay"/>
+</xs:restriction>
+</xs:complexType>
+<!--Elemento datos_cliente-->
+<xs:element name="datos_cliente">
+<xs:complexType>
+<xs:attribute name="f_pago" type="FormaDePago"/>
+<xs:attribute name="imp_total" type="ImporteTotal"/>
+<xs:attribute name="fecha" type="FechaFactura"/>
+<xs:sequence>
+<xs:element ref="nombre"/>
+<xs:element ref="apellido1"/>
+<xs:element ref="apellido2"/>
+<xs:element ref="dni"/>
+<xs:element ref="telefono"/>
+<xs:element ref="id_cliente"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<!--Elemento datos_videoclub-->
+<xs:element name="datos_videoclub">
+<xs:complexType>
+<xs:sequence>
+<xs:element ref="direccion"/>
+<xs:element ref="poblacion"/>
+<xs:element ref="cod_postal"/>
+<xs:element ref="telefono"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<!--Elemento alquiler-->
+<xs:element name="alquiler">
+<xs:complexType>
+<xs:sequence>
+<xs:element ref="fec_devolucion"/>
+<xs:element ref="precio"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<!--Elemento comprar-->
+<xs:element name="comprar">
+<xs:complexType>
+<xs:sequence>
+<xs:element ref="tipo"/>
+<xs:element ref="titulo"/>
+<xs:element ref="fac_salida"/>
+<xs:element ref="extra"/>
+<xs:element ref="pvp"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<!--Elemento datos_cliente-->
+<xs:element name="pelicula">
+<xs:complexType>
+<xs:attribute name="id_pelicula" type="IdPelicula"/>
+<xs:attribute name="valoracion" type="Valoracion"/>
+<xs:sequence>
+<xs:element ref="titulo"/>
+<xs:element ref="genero"/>
+<xs:element ref="duracion"/>
+<xs:element ref="autor"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<!--Elemento datos_factura-->
+<xs:element name="datos_factura">
+<xs:complexType>
+<xs:attribute name="f_pago" type="FormaDePago"/>
+<xs:attribute name="imp_total" type="ImporteTotal"/>
+<xs:attribute name="fecha" type="FechaFactura"/>
+<xs:sequence>
+<xs:element ref="datos_cliente"/>
+<xs:element ref="datos_videoclub"/>
+<xs:element ref="alquiler"/>
+<xs:element ref="comprar"/>
+<xs:element ref="pelicula"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<!--Elemento documento-->
+<xs:element name="documento">
+<xs:complexType>
+<xs:element ref="datos_factura"/>
+</xs:complexType>
 </xs:element>

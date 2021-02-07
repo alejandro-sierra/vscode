@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cartelera xsi:schemaLocation="./07p02-validador.xsd">
-    <película código="p1" duración="152" año="2002" genero="Comedia">
-        <título>AQUELLAS JUERGAS UNIVERSITARIAS</título>
-        <título_original>Old School</título_original>
-        <nacionalidad>Estados Unidos</nacionalidad>
-        <clasificación edad="tp"/>
-        <resumen>
-        Mitch, Frank y Beanie son tres amigos treintañeros cuyas vidas no son exactamente lo que esperaban. Mitch tiene
-        una novia ninfómana que se mete en la cama con el primero que agarra. Frank se ha casado y su matrimonio nada
-        tiene que ver con las juergas salvajes que organizaban años atrás. Y Beanie es un padre de familia que se muere por
-        recuperar su alocada juventud. Pero las cosas cambian cuando Beanie sugiere que creen su propia fraternidad, en la
-        nueva casa que Mitch tiene junto al campus de la universidad. Una ocasión para revivir tiempos gloriosos, hacer nuevos
-        amigos y de volver a sus viejas, salvajes y desmadradas juergas de estudiantes.
-        </resumen>
-        <director>Todd Philips</director>
-        <reparto>
-        <actor>Luke Wilson</actor>
-        <actor>Will Farrel</actor>
-        <actor>Vince Vaughn</actor>
-        </reparto>
-        <pagina_web>http://www.uip.es</pagina_web>
-        <cartel>caratulas/Aquellas juergas.jpg</cartel>
-    </película>
-    
-    <película código="p17" duración="06" genero=”Comedia”>
-        <título>EL ORO DE MOSCÚ</título>
-        <nacionalidad>España</nacionalidad>
-        <clasificación edad="sc"/>
-        <resumen>
-        Por una extraña coincidencia del destino, alguien recibe una información extraconfidencial de un anciano en sus
-        últimos segundos de vida: el secreto mejor guardado de la Historia. El receptor, un trabajador de hospital, se lo
-        comunica secretamente a un supuesto amigo. Ambos inician una aventura rocambolesca y llena de misterio. Ante la
-        inutilidad de sus intentos y muy a su pesar, tienen que recurrir a otras personas que así mismo van cayendo en el pozo
-        sin fondo que conlleva descifrar el enigma.
-        </resumen>
-        <director>Jesús Bonilla</director>
-        <reparto>
-            <actor>Jesús Bonilla</actor>
-            <actor>Santiago Segura</actor>
-            <actor>Alfredo Landa</actor>
-            <actor>Concha Velasco</actor>
-            <actor>Antonio Resines</actor>
-            <actor>Gabino Diego, María Barranco</actor>
-            <actor>María Barranco</actor>
-        </reparto>
-    </película>
-</cartelera>
+
+<documento xsi:schemaLocation="./07p02-validador.xsd">
+    <datos_factura f_pago="efectivo" imp_total="15" fecha="2021-02-05">
+
+        <datos_cliente>
+            <nombre>Juan</nombre>
+            <apellido1>Hernandez</apellido1>
+            <apellido2>Romero</apellido2>
+            <dni>12345678A</dni>
+            <telefono>123456789</telefono>
+            <id_cliente>00001</id_cliente>
+        </datos_cliente>
+
+        <datos_videoclub>
+            <direccion>Carrer Illueca, 28</direccion>
+            <poblacion>Elx, Alicante</poblacion>
+            <cod_postal>03206</cod_postal>
+            <telefono>987654321</telefono>
+        </datos_videoclub>
+
+        <alquiler>
+            <fec_devolucion>2021-02-12</fec_devolucion>
+            <precio>7</precio>
+        </alquiler>
+
+        <comprar>
+            <tipo>DVD</tipo>
+            <titulo>The Blacklist</titulo>
+            <fac_salida>2020</fac_salida>
+            <extra>Si<extra>
+            <pvp>8</pvp>
+        </comprar>
+
+        <pelicula id_pelicula="00013" valoracion="4.8">
+            <titulo>The Blacklist</titulo>
+            <genero>Drama</genero>
+            <duracion>4 horas</duracion>
+            <autor>Jon Bokenkamp</autor>
+        </pelicula>
+
+    </datos_factura>
+</documento>

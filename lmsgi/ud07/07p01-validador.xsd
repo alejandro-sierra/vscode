@@ -6,7 +6,7 @@
         <xs:sequence>    
             <xs:attribute name="n_fac" use="required">
                 <xs:simpleType>
-                    <xs:restriction base="xs:integer">
+                    <xs:restriction base="xs:positiveInteger">
                         <xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9]"/>
                     </xs:restriction>
                 </xs:simpleType>
@@ -28,8 +28,8 @@
                         <xs:element name="provincia" type="xs:string"/>
                         <xs:element name="cif" type="xs:string"/>
                         <xs:element name="telefono" type="xs:string" default="917776666"/>
-                    <xs:sequence>    
-                <xs:complexType>
+                    </xs:sequence>    
+                </xs:complexType>
             </xs:element>
 
             <xs:element name="datos_cliente">
@@ -37,7 +37,7 @@
                     <xs:sequence>
                         <xs:attribute name="n_cli" use="required">
                             <xs:simpleType>
-                                <xs:restriction base="xs:integer">
+                                <xs:restriction base="xs:positiveInteger">
                                     <xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9]"/>
                                 </xs:restriction>
                             </xs:simpleType>
@@ -63,7 +63,7 @@
                     <xs:sequence>
                         <xs:attribute name="n_ped" use="required">
                             <xs:simpleType>
-                                <xs:restriction base="xs:integer">
+                                <xs:restriction base="xs:positiveInteger">
                                     <xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9]"/>
                                 </xs:restriction>
                             </xs:simpleType>
@@ -90,7 +90,7 @@
                             <xs:element name="refencia" type="xs:string" maxOccurs="15" minOccurs="10"/>
                             <xs:element name="descripcion" type="xs:string" maxOccurs="200" minOccurs="1"/>
                             <xs:element name="cantidad" type="xs:integer"/>
-                            <xs:element name="precio" type="xs:integer">
+                            <xs:element name="precio">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:decimal">
                                         <xs:pattern value="[0-9],[0-9],[0-9],[0-9],[0-9],[0-9]"/>
@@ -102,9 +102,10 @@
                         <xs:element name="base" type="xs:decimal"/>
                         <xs:element name="cuota_iva" type="xs:decimal"/>
                         <xs:element name="total" type="xs:decimal"/>
-                    <xs:sequence>
-                <xs:complexType>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
+
          </xs:sequence>
     </xs:complexType>
 </xs:element>
