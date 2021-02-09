@@ -16,9 +16,13 @@ select * from emple where apellido like 'S%' and dept in ('D11','E11');
 select coddep,nomdep from depar where numdirec is null;    
 
 -- 7. Cuántos departamentos tienen director. 
+select coddep,nomdep from depar where numdirec is not null;    
 
 -- 8. Nombre y apellidos de los empleados nacidos en la década de los 40 que o bien tengan un nivel educativo inferior a 14 o bien sean mujeres que ganen más de 3000€. 
+select nombre,apellido from emple where (fechnac>'1940/01/01' and fechnac<'1950/01/01') or (niveduc<14) or (sexo='M' and salario<3000);
 
 -- 9. Apellido, nombre, salario e incremento de un 5% de su salario, ordenado por apellido. 
+select apellido,nombre,salario,truncate(salario*5/100,2) as incremento from emple order by apellido;
 
 -- 10. Apellido y nombre de los empleados, ordenados descendente por antigüedad. 
+select apellido,nombre,feching from emple order by feching;
