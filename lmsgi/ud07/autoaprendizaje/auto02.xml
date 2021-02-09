@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<vehiculos> 
+    <vehiculo> 
+        <nombre>Count Zero</nombre> 
+        <modelo>Series I, 80"</modelo> 
+        <fabricacion> 
+            <inicio> 
+                <dia>21</dia> 
+                <mes>July</mes> 
+                <anyo>1949</anyo> 
+            </inicio> 
+            <fin> 
+                <dia>9</dia> 
+                <mes>August</mes> 
+                <anyo>1949</anyo> 
+            </fin> 
+        </fabricacion> 
+        <modificaciones> 
+            <modificacion>Change Engine</modificacion> 
+            <modificacion>Change pedals</modificacion> 
+            <modificacion>Change gearbox</modificacion> 
+            <modificacion>Fit Rollcage</modificacion> 
+        </modificaciones> 
+    </vehiculo> 
+</vehiculos>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!--*****Elementos Simples*****-->
+<!-- Tipo String -->
+<xs:element name="nombre" type="xs:string"/>
+<xs:element name="modelo" type="xs:string"/>
+<xs:element name="dia" type="xs:string"/>
+<xs:element name="mes" type="xs:string"/>
+<xs:element name="anyo" type="xs:string"/>
+<xs:element name="modificacion" type="xs:string"/>
+
+<!--*****Elementos Complejos*****-->
+<!-- Elemento Inicio -->
+<xs:element name="inicio">
+<xs:complexType>
+<xs:secuence>
+<xs:element ref="dia"/>
+<xs:element ref="mes"/>
+<xs:element ref="anyo"/>
+</xs:secuence>
+</xs:complexType>
+</xs:element>
+<!-- Elemento Fin -->
+<xs:element name="fin">
+<xs:complexType>
+<xs:secuence>
+<xs:element ref="dia"/>
+<xs:element ref="mes"/>
+<xs:element ref="anyo"/>
+</xs:secuence>
+</xs:complexType>
+</xs:element>
+<!-- Elemento Fabricaion -->
+<xs:element name="fabricacion">
+<xs:complexType>
+<xs:secuence>
+<xs:element ref="inicio"/>
+<xs:element ref="fin"/>
+</xs:secuence>
+</xs:complexType>
+</xs:element>
+<!-- Elemento Modificaciones -->
+<xs:element name="modificaciones">
+<xs:complexType>
+<xs:secuence>
+<xs:element ref="modificacion"/>
+</xs:secuence>
+</xs:complexType>
+</xs:element>
+<!-- Elemento Vehiculo -->
+<xs:element name="vehiculo">
+<xs:complexType>
+<xs:secuence>
+<xs:element ref="nombre"/>
+<xs:element ref="modelo"/>
+<xs:element ref="fabricacion"/>
+<xs:element ref="modificaciones"/>
+</xs:secuence>
+</xs:complexType>
+</xs:element>
+<!-- Elemento Vehiculos -->
+<xs:element name="vehiculos">
+<xs:complexType>
+<xs:secuence>
+<xs:element ref="vehiculo"/>
+</xs:secuence>
+</xs:complexType>
+</xs:element>

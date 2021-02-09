@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<nota> 
+    <para>Pedro</para> 
+    <de>Laura</de> 
+    <titulo>Recordatorio</titulo> 
+    <contenido>A las 7:00 pm en la puerta del teatro</contenido> 
+</nota>
+
+<!--*****Elementos Simples*****-->
+<!-- Tipo String -->
+<xs:element name="para" type="xs:string"/>
+<xs:element name="de" type="xs:string"/>
+<xs:element name="titulo" type="xs:string"/>
+<xs:element name="contenido" type="xs:string"/>
+<!--*****Elementos Complejos*****-->
+<xs:element name="nota">
+<xs:complexType>
+<xs:sequence>
+    <xs:element ref="para"/>
+    <xs:element ref="de"/>
+    <xs:element ref="titulo"/>
+    <xs:element ref="contenido"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>

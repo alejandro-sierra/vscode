@@ -18,7 +18,7 @@ select distinct codDep, FecInEmp from empleado where FecInEmp<'1992/01/01';
 select NomEmp from empleado where ExTelEmp is null;
 
 -- 7. Listar el nombre y presupuesto de los departamentos no ubicados en los centros con código DIGE o FAZS.
-select NomDep, PreAnu from departamento where not CodCen in ('DIGE','FAZS');
+select NomDep, PreAnu from departamento where CodCen not in ('DIGE','FAZS');
 
 -- 8. Listar el nombre y salario de los trabajadores que ganen menos de 2 o más de 5 millones de euros.
 select NomEmp, SalEmp from empleado where SalEmp>=2000000.00 or SalEmp<=5000000.00;
@@ -36,8 +36,9 @@ select NomEmp, SalEmp, FecInEmp from empleado where not SalEmp>=4000000 and FecI
 -- 12. Listar el nombre y NIF de los empleados que teniendo un NIF con la letra D o V:
 -- a) Trabajan en los departamentos IN&DI o DIRGE y ganan más de 5 millones; o 
 -- b) Fueron contratados en 1994.
-select NomEmp, NifEmp from empleado where NifEmp like '%D' or NifEmp like'%V' and CodDep in ('IN&DI','DIRGE') and SalEmp>=5000000.00;
-select NomEmp, NifEmp, FecInEmp from empleado where NifEmp like '%D' or NifEmp like'%V' and FecInEmp>'1994/01/01' and FecInEmp>'1994/12/31';
+select NomEmp, NifEmp from empleado where (NifEmp like '%D' or NifEmp like'%V') and (CodDep in ('IN&DI','DIRGE') and SalEmp>=5000000.00);
+select NomEmp, NifEmp, FecInEmp from empleado where (NifEmp like '%D' or NifEmp like'%V') and (FecInEmp>'1994/01/01') and (FecInEmp>'1994/12/31');
+                                                                                          and year(FecInEmp)='1994';
 
 -- 13. Listado del código, nombre y presupuesto de los departamentos ordenado por criterio descendente del presupuesto anual.
 select codDep, NomDep, PreAnu from departamento order by PreAnu desc;
