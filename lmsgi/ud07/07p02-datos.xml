@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<documento xsi:schemaLocation="./07p02-validador.xsd">
+<documento xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./07p02-validador.xsd">
     <datos_factura f_pago="efectivo" imp_total="15" fecha="2021-02-05">
 
         <datos_cliente>
@@ -9,7 +9,7 @@
             <apellido2>Romero</apellido2>
             <dni>12345678A</dni>
             <telefono>123456789</telefono>
-            <id_cliente>00001</id_cliente>
+            <id_cliente>12345</id_cliente>
         </datos_cliente>
 
         <datos_videoclub>
@@ -27,15 +27,15 @@
         <comprar>
             <tipo>DVD</tipo>
             <titulo>The Blacklist</titulo>
-            <fac_salida>2020</fac_salida>
-            <extra>Si<extra>
+            <fec_salida>2020</fec_salida>
+            <extra>Si</extra>
             <pvp>8</pvp>
         </comprar>
 
-        <pelicula id_pelicula="00013" valoracion="4.8">
+        <pelicula id_pelicula="00013" valoracion="4">
             <titulo>The Blacklist</titulo>
             <genero>Drama</genero>
-            <duracion>4 horas</duracion>
+            <duracion>2</duracion>
             <autor>Jon Bokenkamp</autor>
         </pelicula>
 
