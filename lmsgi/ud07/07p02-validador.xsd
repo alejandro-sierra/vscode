@@ -40,7 +40,7 @@
     <xs:element name="extra">
         <xs:simpleType>
             <!-- mirar si es un string -->
-            <xs:restriction base="xs:string"> 
+            <xs:restriction base="xs:string">
                 <xs:enumeration value="Si" />
                 <xs:enumeration value="No" />
             </xs:restriction>
