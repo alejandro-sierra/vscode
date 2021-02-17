@@ -1,15 +1,19 @@
 -- 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los
 -- productos de la base de datos.
+select p.nombre as nombreProducto ,precio,f.nombre as nombreFabricante from producto p join fabricante f on p.codigo_fabricante=f.c odigo;
 
 -- 2. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los
 -- productos de la base de datos. Ordene el resultado por el nombre del fabricante, por orden
 -- alfabético.
+select p.nombre as nombreProducto ,precio,f.nombre as nombreFabricante from producto p join fabricante f on p.codigo_fabricante=f.codigo order by f.nombre;
 
 -- 3. Devuelve una lista con el código del producto, nombre del producto, código del fabricante y
 -- nombre del fabricante, de todos los productos de la base de datos.
+select p.codigo as codigoProducto,p.nombre as nombreProducto,f.codigo as codigoFabricante,f.nombre as nombreFabricante from producto p join fabricante f on p.codigo_fabricante=f.codigo;
 
 -- 4. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más
 -- barato.
+select p.nombre as nombreProducto,precio,f.nombre as nombreFabricante
 
 -- 5. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más
 -- caro.
