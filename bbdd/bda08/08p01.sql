@@ -1,5 +1,3 @@
--- BBDD DE TIENDA
-
 -- 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los
 -- productos de la base de datos.
 select p.nombre as nombreProducto ,precio,f.nombre as nombreFabricante from producto p join fabricante f on p.codigo_fabricante=f.c odigo;
