@@ -59,29 +59,41 @@ select count(*) from producto;
 select count(*) from fabricante; 
 
 -- 19. Calcula el número de valores distintos de código de fabricante aparecen en la tabla productos.
-
+select count(distinct codigo_fabricante) from producto;
 
 -- 20. Calcula la media del precio de todos los productos.
+select avg(precio) from producto;
 
 -- 21. Calcula el precio más barato de todos los productos.
+select min(precio) from producto;
 
 -- 22. Calcula el precio más caro de todos los productos.
+select max(precio) from producto;
 
 -- 23. Lista el nombre y el precio del producto más barato.
+select nombre,precio from producto order by precio limit 1;
 
 -- 24. Lista el nombre y el precio del producto más caro.
+select nombre,precio from producto order by precio desc limit 1;
 
 -- 25. Calcula la suma de los precios de todos los productos.
+select sum(precio) from producto;
 
 -- 26. Calcula el número de productos que tiene el fabricante Asus.
+select count(f.nombre) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
 
 -- 27. Calcula la media del precio de todos los productos del fabricante Asus.
+select avg(precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
 
 -- 28. Calcula el precio más barato de todos los productos del fabricante Asus.
+select min(precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
 
 -- 29. Calcula el precio más caro de todos los productos del fabricante Asus.
+select max(precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
 
 -- 30. Calcula la suma de todos los productos del fabricante Asus.
+select sum(precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
 
 -- 31.Muestra el precio máximo, precio mínimo, precio medio y el número total de productos que
 -- tiene el fabricante Crucial.
+select max(precio),min(precio),avg(precio),sum(precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
