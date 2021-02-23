@@ -8,7 +8,7 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="nombre" type="xs:string" />
-                            <xs:element name="direcion" type="xs:string" />
+                            <xs:element name="direccion" type="xs:string" />
                             <xs:element name="poblacion" type="xs:string" />
                             <xs:element name="provincia" type="xs:string" />
                             <xs:element name="cif" type="xs:string" />
@@ -60,7 +60,8 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="fecha" type="xs:date" />
-                            <xs:element name="linea">
+                            <xs:element name="linea" maxOccurs="unbounded" minOccurs="0"> 
+                                <!-- unbounded significa que lo puedes poner como mucho las veces que quieres -->
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="refencia" type="xs:string" maxOccurs="15" minOccurs="10" />

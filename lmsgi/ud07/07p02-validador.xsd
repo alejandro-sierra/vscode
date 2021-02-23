@@ -139,6 +139,17 @@
             <xs:sequence>
                 <xs:element ref="datos_cliente" />
                 <xs:element ref="datos_videoclub" />
+                <!-- alquiler y compras deberia haber lo puesto por dentro de un choise para poder escoger uno de los dos
+                Ejemplo:
+                    <xs:element name="person">
+                    <xs:complexType>
+                        <xs:choice>
+                        <xs:element name="employee" type="employee"/>
+                        <xs:element name="member" type="member"/>
+                        </xs:choice>
+                    </xs:complexType>
+                    </xs:element>
+                 -->
                 <xs:element ref="alquiler" />
                 <xs:element ref="comprar" />
                 <xs:element ref="pelicula" />
