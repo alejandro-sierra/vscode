@@ -83,11 +83,36 @@ select count(distinct id_comercial) from pedido;
 select count(*) from cliente;
 
 -- 28. Calcula cuál es la mayor cantidad que aparece en la tabla pedido.
-select max(total) from  pedido;
+select max(total) from pedido;
 
 -- 29. Calcula cuál es la menor cantidad que aparece en la tabla pedido.
-select min(total) from  pedido;
+select min(total) from pedido;
 
 -- 30. Calcula cuál es el valor máximo de categoría para cada una de las ciudades que aparece en la
 -- tabla cliente.
-select max(distinct categoría) from cliente;
+-- select max(distinct categoría) from cliente;
+select ciudad, max(categoría) from cliente group by cuidad;
+
+-- LEFT JOIN y RIGHT JOIN
+
+-- 18. Devuelve un listado con todos los clientes junto con los datos de los pedidos que han
+-- realizado. Este listado también debe incluir los clientes que no han realizado ningún pedido. El
+-- listado debe estar ordenado alfabéticamente por el primer apellido, segundo apellido y nombre
+-- de los clientes.
+
+-- 19. Devuelve un listado con todos los comerciales junto con los datos de los pedidos que han
+-- realizado. Este listado también debe incluir los comerciales que no han realizado ningún
+-- pedido. El listado debe estar ordenado alfabéticamente por el primer apellido, segundo apellido
+-- y nombre de los comerciales.
+
+-- 20. Devuelve un listado que solamente muestre los clientes que no han realizado ningún pedido.
+
+-- 21. Devuelve un listado que solamente muestre los comerciales que no han realizado ningún
+-- pedido.
+
+-- 22. Devuelve un listado con los clientes que no han realizado ningún pedido y de los comerciales
+-- que no han participado en ningún pedido. Ordene el listado alfabéticamente por los apellidos y
+-- el nombre. En en listado deberá diferenciar de algún modo los clientes y los comerciales.
+
+-- 23. ¿Se podrían realizar las consultas anteriores con NATURAL LEFT JOIN o NATURAL RIGHT
+-- JOIN? Justifique su respuesta.

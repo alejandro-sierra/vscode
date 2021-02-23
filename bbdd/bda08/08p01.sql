@@ -1,4 +1,4 @@
--- 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los
+    -- 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los
 -- productos de la base de datos.
 select p.nombre as nombreProducto ,precio,f.nombre as nombreFabricante from producto p join fabricante f on p.codigo_fabricante=f.c odigo;
 
@@ -95,3 +95,18 @@ select sum(precio) from producto p join fabricante f on p.codigo_fabricante=f.co
 -- 31.Muestra el precio máximo, precio mínimo, precio medio y el número total de productos que
 -- tiene el fabricante Crucial.
 select max(precio),min(precio),avg(precio),sum(precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre="Asus";
+
+
+-- LEFT JOIN y RIGHT JOIN
+-- 14. Devuelve un listado de todos los fabricantes que existen en la base de datos, junto con los
+-- productos que tiene cada uno de ellos. El listado deberá mostrar también aquellos fabricantes
+-- que no tienen productos asociados.
+select * from fabricante f left join producto p on f.codigo=p.codigo_fabricante; 
+
+-- 15. Devuelve un listado donde sólo aparezcan aquellos fabricantes que no tienen ningún producto
+-- asociado.
+select * from fabricante f left join producto p on f.codigo=p.codigo_fabricante where p.codigo is null;
+
+-- 16. ¿Pueden existir productos que no estén relacionados con un fabricante? Justifique su
+-- respuesta.
+--No ya que en la propia base de datos hay una restriccion de que un producto tiene que tener asociando un fabricante.

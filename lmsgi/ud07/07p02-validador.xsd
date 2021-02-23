@@ -134,6 +134,7 @@
         </xs:complexType>
     </xs:element>
     <!--Elemento datos_factura-->
+        <!-- Deberiamos poder poner mas facturas con maxOccurs -->
     <xs:element name="datos_factura">
         <xs:complexType>
             <xs:sequence>
