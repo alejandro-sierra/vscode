@@ -13,10 +13,10 @@ select puesto, nombre, apellido1, apellido2, email from empleado where codigo_je
 
 -- 5. Devuelve un listado con el nombre, apellidos y puesto de aquellos empleados que no sean
 -- representantes de ventas.
-select nombre, apellido1, apellido2, puesto from empleado where puesto="Representante Ventas";
+select nombre, apellido1, apellido2, puesto from empleado where !="Representante Ventas"; --que no sean "!"
 
 -- 6. Devuelve un listado con el nombre de los todos los clientes españoles.
-select e.nombre from empleado e join oficina o on e.codigo_oficina = o.codigo_oficina where o.pais="España";
+select * from cliente where pais="Spain";
 
 -- 7. Devuelve un listado con los distintos estados por los que puede pasar un pedido.
 select distinct estado from pedido;
@@ -25,13 +25,14 @@ select distinct estado from pedido;
 -- 2008. Tenga en cuenta que deberá eliminar aquellos códigos de cliente que aparezcan
 -- repetidos. Resuelva la consulta:
     -- 1. Utilizando la función YEAR de MySQL.
-    select codigo_cliente from pago where year(fecha_pago)='2008';
+    select distinct codigo_cliente from pago where year(fecha_pago)='2008';
 
     -- 2. Utilizando la función DATE_FORMAT de MySQL.
-    select codigo_cliente from pago where date_format(fecha_pago,"%Y")='2008';
+    select distinct codigo_cliente from pago where date_format(fecha_pago,"%Y")='2008';
 
     -- 3. Sin utilizar ninguna de las funciones anteriores.
-    select codigo_cliente from pago where fecha_pago like '%2008%';
+    select distinct codigo_cliente from pago where fecha_pago like '%2008%';
+    --mejor between desde 1 Ene al 31 Dic 
 
 -- 9. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de
 -- entrega de los pedidos que no han sido entregados a tiempo.
@@ -41,10 +42,11 @@ select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido w
 -- entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha
 -- esperada.
     -- 1. Utilizando la función ADDDATE de MySQL.
-    select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido where adddate(fecha_entrega, interval -2 day); --preguntar
+    select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido where fecha_esperada>=adddate(fecha_entrega, interval 2 day); --preguntar
+    select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido where fecha_esperada>=adddate(fecha_entrega, 2);
 
     -- 2. Utilizando la función DATEDIFF de MySQL.
-    select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido where datediff(fecha_entrega, fecha_esperada); --preguntar
+    select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido where datediff(fecha_esperada, fecha_entrega) >=2; --preguntar
 
     -- 3. ¿Sería posible resolver esta consulta utilizando el operador de suma + o resta -?
     select codigo_pedido, codigo_cliente, fecha_esperada,fecha_entrega from pedido where fecha_entrega=fecha_esperada-2;
@@ -55,6 +57,7 @@ select * from pedido where estado="Rechazado" and year(fecha_esperada)='2009';
 -- 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de
 -- cualquier año.
 select * from pedido where date_format(fecha_entrega,"%m")='01';
+select * from pedido where date_format month(fecha_entrega)='01';
 
 -- 13. Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal.
 -- Ordene el resultado de mayor a menor.
@@ -72,6 +75,7 @@ select * from producto where gama="Ornamentales" and cantidad_en_stock>100 order
 -- 16. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y cuyo
 -- representante de ventas tenga el código de empleado 11 o 30.
 select  * from cliente where ciudad="Madrid" and codigo_empleado_rep_ventas=10 or codigo_empleado_rep_ventas=30;
+select  * from cliente where ciudad="Madrid" and codigo_empleado_rep_ventas in (10,30);
 
 -- Consultas multitabla (Composición interna)
 -- 17.Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de
@@ -85,6 +89,7 @@ select c.nombre_cliente, e.nombre as "nombre empleado" from cliente c join pago 
 
 -- 19.Muestra el nombre de los clientes que no hayan realizado pagos junto con el nombre de sus
 -- representantes de ventas.
+--con left join
 select c.nombre_cliente, e.nombre as "nombre empleado" from cliente c join pago p on c.codigo_cliente=p.codigo_cliente --preguntar
                                         join empleado e on c.codigo_empleado_rep_ventas=e.codigo_empleado where p.forma_pago is null;
 
@@ -96,7 +101,8 @@ select c.nombre_cliente, e.nombre as "nombre empleado", o.ciudad from cliente c 
 
 -- 21. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus
 -- representantes junto con la ciudad de la oficina a la que pertenece el representante.
-select c.nombre_cliente, e.nombre as "nombre empleado" from cliente c join pago p on c.codigo_cliente=p.codigo_cliente --preguntar
+--con left join
+select c.nombre_cliente, e.nombre as "nombre empleado" from cliente c join pago p on c.codigo_cliente=p.codigo_cliente
                                         join empleado e on c.codigo_empleado_rep_ventas=e.codigo_empleado where p.forma_pago is null;
 
 -- 22. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
@@ -124,16 +130,16 @@ select distinct c.nombre_cliente,pro.gama from cliente c join pedido ped on ped.
 select distinct c.codigo_cliente,c.nombre_cliente from cliente c left join pago p on c.codigo_cliente=p.codigo_cliente where forma_pago is null; 
 
 -- 28. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pedido.
-select distinct c.codigo_cliente,c.nombre_cliente from cliente c left join pedido p on c.codigo_cliente=p.codigo_cliente where fecha_pedido is null; 
+select distinct c.codigo_cliente,c.nombre_cliente from cliente c left join pedido p on c.codigo_cliente=p.codigo_cliente where p.codigo_pedido is null; 
 
 -- 29. Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no
 -- han realizado ningún pedido.
-select distinct c.codigo_cliente,c.nombre_cliente from cliente c left join pedido ped on c.codigo_cliente=ped.codigo_cliente
-                                                                   left join pago pag on c.codigo_cliente=pag.codigo_cliente where fecha_pedido is null and forma_pago is null;
+select distinct c.codigo_cliente,c.nombre_cliente from cliente c left join pedido ped on c.codigo_cliente=ped.codigo_cliente --revisar, esta mal
+                                                                   left join pago pag on c.codigo_cliente=pag.codigo_cliente where ped.codigo_oficina is null and pag.id_transaccion is null;
 
 -- 30. Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
-select e.nombre as "nombre empleado" from empleado e left join oficina o on e.codigo_oficina=o.codigo_oficina where e.codigo_oficina is null; --preguntar
- 
+select e.nombre as "nombre empleado" from empleado where codigo_oficina is null;
+
 -- 31. Devuelve un listado que muestre solamente los empleados que no tienen un cliente asociado.
 select e.codigo_empleado,e.nombre as "nombre empleado" from empleado e left join cliente c on c.codigo_empleado_rep_ventas=e.codigo_empleado where codigo_empleado_rep_ventas is null;
 
@@ -144,9 +150,8 @@ select * from empleado e left join oficina o on o.codigo_oficina=e.codigo_oficin
 
 -- 33. Devuelve un listado que muestre los empleados que no tienen una oficina asociada y los que
 -- no tienen un cliente asociado.
-select e.codigo_empleado,e.nombre as "nombre empleado" from empleado e left join cliente c on c.codigo_empleado_rep_ventas=e.codigo_empleado --preguntar
-                                                                            join oficina o on o.codigo_oficina=e.codigo_oficina where o.codigo_oficina is null and 
-                                                                            codigo_empleado_rep_ventas is null;
+select e.codigo_empleado,e.nombre as "nombre empleado" from empleado e left join cliente c on c.codigo_empleado_rep_ventas=e.codigo_empleado --revisar, esta mal
+                            where e.codigo_oficina is null and e.codigo_empleado_rep_ventas is null;
 
 -- 34. Devuelve un listado de los productos que nunca han aparecido en un pedido.
 select * from producto pro left join detalle_pedido dp on dp.codigo_producto=pro.codigo_producto where codigo_pedido is null;
@@ -154,8 +159,9 @@ select * from producto pro left join detalle_pedido dp on dp.codigo_producto=pro
 -- 35. Devuelve un listado de los productos que nunca han aparecido en un pedido. El resultado debe
 -- mostrar el nombre, la descripción y la imagen del producto.
 select pro.nombre as "nombre producto", pro.descripcion from producto pro left join detalle_pedido dp on dp.codigo_producto=pro.codigo_producto
-                                                                     where codigo_pedido is null; --preguntar
+                                                                     where codigo_pedido is null;
 
+--PENDIENTES DE REVIAR 36 A AL 38
 -- 36. Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los
 -- representantes de ventas de algún cliente que haya realizado la compra de algún producto de
 -- la gama Frutales.

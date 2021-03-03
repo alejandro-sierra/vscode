@@ -95,7 +95,6 @@ select min(total) from pedido;
 select ciudad, max(categoría) from cliente group by cuidad;
 
 -- LEFT JOIN y RIGHT JOIN
-
 -- 18. Devuelve un listado con todos los clientes junto con los datos de los pedidos que han
 -- realizado. Este listado también debe incluir los clientes que no han realizado ningún pedido. El
 -- listado debe estar ordenado alfabéticamente por el primer apellido, segundo apellido y nombre
