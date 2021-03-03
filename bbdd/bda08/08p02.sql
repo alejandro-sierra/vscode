@@ -54,6 +54,7 @@ select * from comercial c join pedido p on p.id_comercial=c.id order by c.nombre
 -- con los datos de los comerciales asociados a cada pedido.
 select * from cliente cli join pedido p on cli.id=p.id_cliente
                           join comercial com on com.id=p.id_comercial;
+                          
 -- 15. Devuelve un listado de todos los clientes que realizaron un pedido durante el año 2017, cuya
 -- cantidad esté entre 300 € y 1000 €.
 select * from cliente c join pedido p on c.id=p.id_cliente where (total>300 and total<1000) and fecha like ('%2017%');
