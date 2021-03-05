@@ -11,8 +11,7 @@ select f.nombre, max(p.codigo),min(p.codigo),avg(p.codigo) from fabricante f lef
 -- 3. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos de los
 -- fabricantes que tienen un precio medio superior a 190€. No es necesario mostrar el nombre del
 -- fabricante, con el código del fabricante es suficiente.
-select f.codigo, max(p.precio),min(p.precio),avg(p.precio),count(p.precio) from fabricante f left join producto p on p.codigo_fabricante = f.codigo
-                     group by f.codigo having avg(p.precio)>190;
+select f.codigo, max(p.precio),min(p.precio),avg(p.precio),count(p.precio) from producto group by codigo_fabricante having avg(p.precio)>190;
 
 -- 4. Muestra el nombre de cada fabricante, junto con el precio máximo, precio mínimo, precio
 -- medio y el número total de productos de los fabricantes que tienen un precio medio superior a
@@ -28,15 +27,13 @@ select f.nombre,count(p.codigo) as "nº productos" from fabricante f join produc
 
 -- 7. Lista el precio medio los productos de cada fabricante, mostrando solamente el código del
 -- fabricante.
-select f.codigo, avg(p.precio) from fabricante f join producto p on f.codigo = p.codigo_fabricante group by f.codigo;
+select p.codigo_fabricante, avg(p.precio) from producto group by p.codigo_fabricante;
 
 -- 8. Lista el precio medio los productos de cada fabricante, mostrando solamente el nombre del
 -- fabricante.
 select f.nombre, avg(p.precio) from fabricante f join producto p on f.codigo = p.codigo_fabricante group by f.nombre;
 
-
--- 9. Lista los nombres de los fabricantes cuyos productos tienen un precio medio mayor o igual a
--- 150€.
+-- 9. Lista los nombres de los fabricantes cuyos productos tienen un precio medio mayor o igual a 150€.
 select f. nombre from fabricante f join producto p on f.codigo = p.codigo_fabricante group by f.nombre having avg(p.precio)>=150;
 
 -- 10. Devuelve un listado con los nombres de los fabricantes que tienen 2 o más productos.
@@ -51,7 +48,8 @@ select f.nombre,count(p.codigo) from fabricante f join producto p on f.codigo = 
 -- cada uno con un precio superior o igual a 220 €. El listado debe mostrar el nombre de todos los
 -- fabricantes, es decir, si hay algún fabricante que no tiene productos con un precio superior o
 -- igual a 220€ deberá aparecer en el listado con un valor igual a 0 en el número de productos.
-select f.nombre,count(p.codigo),p.precio>=220 from fabricante f left join producto p on f.codigo = p.codigo_fabricante group by f.nombre;
+select f.nombre,count(p.codigo) from fabricante f left join producto p on f.codigo = p.codigo_fabricante and p.precio>=220 group by f.nombre;
+--esto realiza la comparacion de los precios antes de hacer el join, si lo pones con el where lo hace despues y no responde nada
 
 -- 13. Devuelve un listado con los nombres de los fabricantes donde la suma del precio de todos sus
 -- productos es superior a 900 €.
@@ -62,3 +60,42 @@ select f.nombre,sum(p.precio) from fabricante f join producto p on f.codigo = p.
 -- resultado tiene que estar ordenado alfabéticamente de menor a mayor por el nombre del
 -- fabricante.
 select f.nombre,max(p.precio),p.nombre from fabricante f join producto p on f.codigo = p.codigo_fabricante group by f.nombre;
+
+-- 15. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).
+
+-- 16. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más
+-- caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
+
+-- 17. Lista el nombre del producto más caro del fabricante Lenovo.
+
+-- 18. Lista el nombre del producto más barato del fabricante Crucial.
+
+-- 19. Devuelve todos los productos de la base de datos que tienen un precio mayor o igual al
+-- producto más caro del fabricante Lenovo.
+
+-- 20. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de
+-- todos sus productos.
+-- Subconsultas con ALL y ANY
+
+-- 21. Devuelve el producto más caro que existe en la tabla producto sin hacer uso de MAX, ORDER
+-- BY ni LIMIT.
+
+-- 22. Devuelve el producto más barato que existe en la tabla producto sin hacer uso de MIN,
+-- ORDER BY ni LIMIT.
+
+-- 23. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando ALL o
+-- ANY).
+
+-- 24. Devuelve los nombres de los fabricantes que no tienen productos asociados. (Utilizando ALL o
+-- ANY).
+
+-- Subconsultas con IN y NOT IN
+-- 25. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando IN o NOT
+-- IN).
+
+-- 26. Devuelve los nombres de los fabricantes que no tienen productos asociados. (Utilizando IN o
+-- NOT IN).
+
+-- 27.Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando EXISTS oNOT EXISTS).
+
+-- 28.Devuelve   los   nombres   de   los   fabricantes   que   no   tienen   productos   asociados.   (UtilizandoEXISTS o NOT EXISTS)

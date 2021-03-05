@@ -134,7 +134,7 @@
         </xs:complexType>
     </xs:element>
     <!--Elemento datos_factura-->
-        <!-- Deberiamos poder poner mas facturas con maxOccurs -->
+        <!-- Deberiamos poder poner mas facturas con maxOccurs, para poner que quiero poner un elemento infinitas veces UNBOUNDED unbounded-->
     <xs:element name="datos_factura">
         <xs:complexType>
             <xs:sequence>
