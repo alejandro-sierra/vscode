@@ -62,40 +62,55 @@ select f.nombre,sum(p.precio) from fabricante f join producto p on f.codigo = p.
 select f.nombre,max(p.precio),p.nombre from fabricante f join producto p on f.codigo = p.codigo_fabricante group by f.nombre;
 
 -- 15. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).
+select * from producto where codigo_fabricante = (select codigo from fabricante where nombre="Lenovo");
 
 -- 16. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más
 -- caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
+select * from producto where precio >all (select precio from producto where codigo_fabricante = (select codigo from fabricante where nombre='Lenovo'));
 
 -- 17. Lista el nombre del producto más caro del fabricante Lenovo.
+select nombre,max(precio) from producto where codigo_fabricante = (select codigo from fabricante where nombre="Lenovo");
 
 -- 18. Lista el nombre del producto más barato del fabricante Crucial.
+select nombre,min(precio) from producto where codigo_fabricante = (select codigo from fabricante where nombre="Crucial");
 
 -- 19. Devuelve todos los productos de la base de datos que tienen un precio mayor o igual al
 -- producto más caro del fabricante Lenovo.
+select * from producto where precio >=all (select precio from producto where codigo_fabricante = (select codigo from fabricante where nombre='Lenovo'));
 
 -- 20. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de
 -- todos sus productos.
 -- Subconsultas con ALL y ANY
+select * from producto where codigo_fabricante =all (select codigo from fabricante where nombre="Asus" or precio <all (select avg(precio) from producto));
+--no hay ningun producot de Asus que supere la media de todos los productos (la media es de 271,7236)
 
 -- 21. Devuelve el producto más caro que existe en la tabla producto sin hacer uso de MAX, ORDER
 -- BY ni LIMIT.
+select * from producto p where p.precio >=all (select precio from producto where p.precio<precio);
 
 -- 22. Devuelve el producto más barato que existe en la tabla producto sin hacer uso de MIN,
 -- ORDER BY ni LIMIT.
+select * from producto p where p.precio >=all (select precio from producto where p.precio>precio);
 
 -- 23. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando ALL o
 -- ANY).
+select nombre from fabricante where codigo = (select codigo_fabricante from fabricante);
 
 -- 24. Devuelve los nombres de los fabricantes que no tienen productos asociados. (Utilizando ALL o
 -- ANY).
+select nombre from fabricante where codigo =any (select codigo_fabricante from producto);
 
 -- Subconsultas con IN y NOT IN
 -- 25. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando IN o NOT
 -- IN).
+select nombre from fabricante where codigo in (select codigo_fabricante from producto);
 
 -- 26. Devuelve los nombres de los fabricantes que no tienen productos asociados. (Utilizando IN o
 -- NOT IN).
+select nombre from fabricante where codigo not in (select codigo_fabricante from producto);
 
--- 27.Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando EXISTS oNOT EXISTS).
+-- 27.Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando EXISTS o NOT EXISTS).
+select nombre from fabricante f where exists (select codigo_fabricante from producto WHERE f.codigo=codigo_fabricante);
 
 -- 28.Devuelve   los   nombres   de   los   fabricantes   que   no   tienen   productos   asociados.   (UtilizandoEXISTS o NOT EXISTS)
+select nombre from fabricante f where not exists (select codigo_fabricante from producto WHERE f.codigo=codigo_fabricante);
