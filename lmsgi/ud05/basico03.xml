@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<restaurant>
+<menus>
     <menu>
         <day>lunes</day>
         <first>Cocido madrileño</first>
@@ -42,4 +42,4 @@
         <second>Paella con bogavante</second>
         <price>15</price>
     </menu>
-</restaurant>
+</menus>

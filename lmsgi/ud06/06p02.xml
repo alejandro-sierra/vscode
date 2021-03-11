@@ -18,7 +18,7 @@
 <!-- Atributos -->
 <!-- <!ATTLIST element-name attribute-name attribute-type attribute-value> -->
     <!ATTLIST pelicula codigo ID #REQUIRED>
-    <!ATTLIST pelicula duracion CDATA "2003">
+    <!ATTLIST pelicula duracion CDATA>
     <!ATTLIST pelicula genero CDATA>
     <!ATTLIST pelicula anyo CDATA>
     <!ATTLIST clasificacion edad (tp | 10 | 16 | 18 | sc )>

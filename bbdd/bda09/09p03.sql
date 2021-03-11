@@ -1,11 +1,17 @@
 -- Consultas agrupadas
 -- 1. Devuelve el nombre de los representantes de ventas y el número de clientes al que atiende
 -- cada uno.
+select e.nombre, count(c.codigo_cliente 
+from cliente c join empleado e on e.codigo_empleado=c.codigo_empleado_rep_ventas 
+group by e.nombre;
 
--- 2. Calcula el número de clientes que no tiene asignado representante de ventas.
+-- 2. Calcula el número de clientes que no tiene asignado representante de ventas. --revisar
+select c.nombre_cliente,count(c.codigo_empleado_rep_ventas) 
+from cliente c join empleado e on c.codigo_empleado_rep_ventas=e.codigo_empleado 
+where c.codigo_empleado_rep_ventas is null group by c.nombre_cliente;
 
 -- 3. Calcula la fecha del primer y último pago realizado por cada uno de los clientes. El listado
--- deberá mostrar el nombre y los apellidos de cada cliente.
+-- deberá mostrar el nombre y los apellidos de cada cliente.    
 
 -- 4. Calcula el número de productos diferentes que hay en cada uno de los pedidos.
 
@@ -87,22 +93,50 @@
 -- Consultas variadas
 -- 32. Devuelve el listado de clientes indicando el nombre del cliente y cuántos pedidos ha realizado.
 -- Tenga en cuenta que pueden existir clientes que no han realizado ningún pedido.
+select c.nombre,count(p.codigo_pedido) 
+from cliente c left join pedido p on c.codigo_cliente=p.codigo_cliente 
+group by c.nombre_cliente;
 
 -- 33. Devuelve un listado con los nombres de los clientes y el total pagado por cada uno de ellos.
 -- Tenga en cuenta que pueden existir clientes que no han realizado ningún pago.
+select c.nombre_cliente,sum(p.total) 
+from cliente c left join pago p on c.codigo_cliente=p.codigo_cliente 
+group by c.nombre_cliente;
 
 -- 34. Devuelve el nombre de los clientes que hayan hecho pedidos en 2008 ordenados
 -- alfabéticamente de menor a mayor.
+select c.nombre_cliente 
+from cliente c join pedido p on c.codigo_cliente=p.codigo_cliente
+where year(p.fecha_pedido)='2008' order by c.nombre_cliente;
 
 -- 35. Devuelve el nombre del cliente, el nombre y primer apellido de su representante de ventas y el
 -- número de teléfono de la oficina del representante de ventas, de aquellos clientes que no
 -- hayan realizado ningún pago.
+select c.nombre_cliente,e.nombre as 'nombre empleado',e.apellido1,o.telefono as 'telefono oficina'
+from cliente c left join pago p on p.codigo_cliente=c.codigo_cliente
+            join empleado e on e.codigo_empleado=c.codigo_empleado_rep_ventas
+            join oficina o on o.codigo_oficina=e.codigo_oficina
+where id_transaccion is null;    
+
 
 -- 36. Devuelve el listado de clientes donde aparezca el nombre del cliente, el nombre y primer
 -- apellido de su representante de ventas y la ciudad donde está su oficina.
+select c.nombre_cliente,e.nombre as 'nombre empleado',e.apellido1,o.ciudad as 'ciudad oficina'
+from cliente c left join pago p on p.codigo_cliente=c.codigo_cliente
+            join empleado e on e.codigo_empleado=c.codigo_empleado_rep_ventas
+            join oficina o on o.codigo_oficina=e.codigo_oficina
+group by c.nombre_cliente;
 
 -- 37. Devuelve el nombre, apellidos, puesto y teléfono de la oficina de aquellos empleados que no
 -- sean representante de ventas de ningún cliente.
+select e.nombre as 'nombre empleado',e.apellido1,e.apellido2,e.puesto,o.telefono as 'telefono oficina'
+from cliente c left join pago p on p.codigo_cliente=c.codigo_cliente
+            join empleado e on e.codigo_empleado=c.codigo_empleado_rep_ventas
+            join oficina o on o.codigo_oficina=e.codigo_oficina
+where e.puesto !='Representante Ventas' group by e.nombre;
 
 -- 38. Devuelve un listado indicando todas las ciudades donde hay oficinas y el número de
 -- empleados que tiene.
+select o.ciudad,count(e.codigo_empleado) 
+from oficina o join empleado e on o.codigo_oficina=e.codigo_oficina
+group by o.ciudad; 

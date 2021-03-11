@@ -2,10 +2,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deportistas>
     <deportista>
-        <deporte Atletismo /> <!--La etiqueta está mal estructurada, la estructura correcta es esta: <deporte nombre="Atletismo"/>-->>
+        <deporte name="Atletismo"/> <!--La etiqueta está mal estructurada, la estructura correcta es esta: <deporte nombre="Atletismo"/>-->>
         <nombre>Jesse Owens</nombre>
+    </deportista>
     <deportista> <!--Deportista tendría que tener etiqueta de cierre tal que así "</deportista>""-->
-        <deporte Natación /> <!--Esta etiqueta también esta mal estructurada, la estructura correcta es: <deporte nombre="Natacion"/>-->>
+        <deporte name="Natación" /> <!--Esta etiqueta también esta mal estructurada, la estructura correcta es: <deporte nombre="Natacion"/>-->>
         <nombre>Mark Spitz</nombre>
     </deportista>
 </deportistas>
@@ -36,21 +37,21 @@
 
 <!--Ejercicio 4-->
 <?xml version="1.0" encoding="UTF-8"?>
-<geografia mundial>  <!--No se permiten espacios en una etiqueta, el código tomara el resto de la etiqueta como un atributo de geografia 
+<geografia name="mundial">  <!--No se permiten espacios en una etiqueta, el código tomara el resto de la etiqueta como un atributo de geografia 
 y deberia estar estructurado de esta manera: <geografia nombre="mundial">-->
     <pais>
         <pais>España</pais> <!--En este caso la etiqueta pais no tiene la misma "importancia" que la anterior, deberiamos ponerle nombre en vez de pais.-->
         <continente>Europa</continente>
         <capital></capital nombre="Madrid"> <!--Los atributos de las etiquetas deben de estar en la etiqueta de apertura no en la de cierre.-->
     </pais>
-</geografia mundial>
+</geografia name="mundial">
 
 <!--Ejercicio 5-->
 <?xml version="1.0" encoding="UTF-8"?>
 <programas>
     <programa nombre="Firefox" licencia="GPL" licencia="MPL" /> <!--No puden haber dos etiquetas iguales, y con diferente información-->
     <programa nombre="LibreOffice" licencia="LGPL" />
-    <programa nombre="Inkscape" licencia=GPL /> <!--Le faltan las comillas a la licencia: licencia="GPL"-->
+    <programa nombre="Inkscape" licencia="GPL" /> <!--Le faltan las comillas a la licencia: licencia="GPL"-->
 </programas>
 
 <!--Ejercicio 6-->
@@ -66,5 +67,5 @@ y deberia estar estructurado de esta manera: <geografia nombre="mundial">-->
 <?xml version="1.0" encoding="UTF-8"?>
 <mediosDeTransporte>
 <bicicleta velocidad="v<100km/h" />
-<patinete velocidad maxima="50 km/h" <!--No tiene etiqueta de cierre, y velocidad y maxima deberia ir junto.-->
+<patinete velocidad_maxima="50 km/h"/> <!--No tiene etiqueta de cierre, y velocidad y maxima deberia ir junto.-->
 </mediosDeTransporte>
