@@ -57,7 +57,7 @@ select * from pedido where estado="Rechazado" and year(fecha_esperada)='2009';
 -- 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de
 -- cualquier año.
 select * from pedido where date_format(fecha_entrega,"%m")='01';
-select * from pedido where date_format month(fecha_entrega)='01';
+select * from pedido where date_format month(fecha_entrega)='01'; 
 
 -- 13. Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal.
 -- Ordene el resultado de mayor a menor.

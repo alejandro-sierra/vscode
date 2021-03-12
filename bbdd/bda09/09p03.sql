@@ -1,26 +1,34 @@
 -- Consultas agrupadas
 -- 1. Devuelve el nombre de los representantes de ventas y el número de clientes al que atiende
 -- cada uno.
-select e.nombre, count(c.codigo_cliente 
+select e.nombre, count(c.codigo_cliente)
 from cliente c join empleado e on e.codigo_empleado=c.codigo_empleado_rep_ventas 
 group by e.nombre;
 
 -- 2. Calcula el número de clientes que no tiene asignado representante de ventas. --revisar
-select c.nombre_cliente,count(c.codigo_empleado_rep_ventas) 
-from cliente c join empleado e on c.codigo_empleado_rep_ventas=e.codigo_empleado 
-where c.codigo_empleado_rep_ventas is null group by c.nombre_cliente;
+
 
 -- 3. Calcula la fecha del primer y último pago realizado por cada uno de los clientes. El listado
 -- deberá mostrar el nombre y los apellidos de cada cliente.    
+select c.nombre_contacto as 'nombre cliente',c.apellido_contacto as 'apellido',max(p.fecha_pedido),min(p.fecha_pedido) 
+from cliente c join pedido p on c.codigo_cliente=p.codigo_cliente
+group by c.nombre_contacto,c.apellido_contacto;
 
 -- 4. Calcula el número de productos diferentes que hay en cada uno de los pedidos.
+select dp.codigo_pedido, count(p.codigo_producto) 
+from detalle_pedido dp join producto p on dp.codigo_producto=p.codigo_producto 
+group by codigo_pedido;
 
 -- 5. Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los
 -- pedidos.
+select dp.codigo_pedido, count(p.codigo_producto),sum(precio_unidad*cantidad) 
+from detalle_pedido dp join producto p on dp.codigo_producto=p.codigo_producto 
+group by codigo_pedido;
 
 -- 6. Devuelve un listado de los 15 productos más vendidos y el número total de unidades que se
 -- han vendido de cada uno. El listado deberá estar ordenado por el número total de unidades
 -- vendidas.
+
 
 -- 7. La facturación que ha tenido la empresa en toda la historia, indicando la base imponible, el IVA
 -- y el total facturado. La base imponible se calcula sumando el coste del producto por el número
