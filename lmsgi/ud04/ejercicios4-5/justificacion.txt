@@ -1,2 +1,0 @@
-He utilizado "border="1"" aun que no es soportado en HTML5 ya que no podiamos utilizar CSS.
-Abajo aunque no lo pedia en la parte de abajo he puesto una lista con los asccesseky.

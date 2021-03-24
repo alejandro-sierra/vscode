@@ -1,3 +1,0 @@
-Yo la principal diferencia que he encontrado al cambiar de navegador es que el atributo <embed>
- no funciona en todos los navegadores, también he notado una diferencia en la forma de representar 
- los archivos multimedia.
