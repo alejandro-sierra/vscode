@@ -1,5 +1,5 @@
 use jardineria;
-
+-- A) Los siguiente ejercicios sobre optimización de consultas utilizan la base de datos de jardineria
 -- 1.- ¿Qué índices hay en la tabla producto? Escribe las dos instrucciones SQL que nos permiten
 -- obtener esta información de la tabla.
 
