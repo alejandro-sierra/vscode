@@ -1,7 +1,8 @@
 use jardineria;
 
 --   1. Nombre y primer apellido de los empleados cuyo jefe directo es el jefe de la empresa. --hacer esta
-select nombre as 'nombre empleado', apellido1 as 'apellido empleado' from empleado e1 where e1.codigo_jefe = (select e2.codigo_empleado from empleado e2 where e2.codigo_jefe is null);
+select nombre as 'nombre empleado', apellido1 as 'apellido empleado' 
+from empleado e1 where e1.codigo_jefe = (select e2.codigo_empleado from empleado e2 where e2.codigo_jefe is null);
 
 --   2. Pedidos rechazados que no se llegaron a entregar. --bien
 select codigo_pedido,fecha_entrega,estado from pedido where fecha_entrega is null and estado='Rechazado';
