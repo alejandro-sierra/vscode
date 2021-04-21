@@ -16,14 +16,14 @@ call 11holaMundo();
 -- número real de entrada y muestre un mensaje indicando
 -- si el número es positivo, negativo o cero.
 DELIMITER //
-create or replace procedure 12posNegCero(numero integer)
+create or replace procedure 12posNegCero(numero int)
 begin
-    declare resultado integer;
+    declare resultado varchar(128);
     if numero < 0 then
         set resultado = "numero negativo";
     elseif numero > 0 then
         set resultado = "numero positivo";
-    else numero = 0 then
+    else
         set resultado = "numero es 0";
     end if;
     select resultado;
@@ -31,12 +31,12 @@ end
 //
 DELIMITER ;
 
-call 12posNegCero(12);
-
+call 12posNegCero(0);
 
 -- 3) Modifica el procedimiento anterior (13posNegCeroOut)
 -- para que tenga un parámetro de entrada, con el valor un
 -- número real, y un parámetro de salida con el resultado.
+
 
 -- 4) Escribe un procedimiento (14nota) que reciba un número
 -- real de entrada, que representa el valor de la nota de un
