@@ -116,18 +116,19 @@ call 15notaOut(0, @resultado);
 -- 6) Resuelva el procedimiento diseñado en el ejercicio
 -- anterior haciendo uso de la estructura de control CASE
 -- (16notaCase).
+
 DELIMITER //
 create or replace procedure 16notaCase(nota int)
 begin
     declare resultado varchar(128);
     case
-    when nota >= 0 and nota <= 5 then
+    when nota < 0 then
         set resultado = "insuficiente";
-    when nota > 5 and nota <= 6 then
+    when nota < 6 then
         set resultado = "aprobado";
-    when nota > 6 and nota <= 7 then
+    when nota < 7 then
         set resultado = "bien";
-    when nota > 7 and nota <= 9 then
+    when nota < 9 then
         set resultado = "notable";
     else
         set resultado = "sobresaliente";
@@ -138,6 +139,29 @@ end
 DELIMITER ;
 
 call 16notaCase(0);
+
+-- DELIMITER //
+-- create or replace procedure 16notaCase(nota int)
+-- begin
+--     declare resultado varchar(128);
+--     case
+--     when nota >= 0 and nota <= 5 then
+--         set resultado = "insuficiente";
+--     when nota > 5 and nota <= 6 then
+--         set resultado = "aprobado";
+--     when nota > 6 and nota <= 7 then
+--         set resultado = "bien";
+--     when nota > 7 and nota <= 9 then
+--         set resultado = "notable";
+--     else
+--         set resultado = "sobresaliente";
+--     end case;
+--     select resultado;
+-- end
+-- //
+-- DELIMITER ;
+
+-- call 16notaCase(0);
 
 -- 7) Escribe un procedimiento (17diaSemana) que reciba
 -- como entrada un entero que represente un día de la
@@ -178,7 +202,7 @@ call 17diaSemana(5);
 -- una consulta sobre la tabla cliente para obtener
 -- todos los clientes que existen en la tabla de ese país.
 DELIMITER //
-CREATE PROCEDURE 21clientesPais(variable VARCHAR(50))
+CREATE or replace PROCEDURE 21clientesPais(variable VARCHAR(50))
 BEGIN
 select * from cliente where pais=variable;
 END;
@@ -192,7 +216,7 @@ call 21clientesPais("USA");
 -- pago de máximo valor realizado para esa forma de
 -- pago.
 DELIMITER //
-CREATE PROCEDURE 22pagoMaximoPorTipo(variable VARCHAR(40))
+CREATE or replace PROCEDURE 22pagoMaximoPorTipo(variable VARCHAR(40))
 BEGIN
 select *,max(total) as "pago maximo" from pago where forma_pago=variable;
 END;
@@ -211,7 +235,7 @@ call 22pagoMaximoPorTipo("PayPal");
 -- -- la suma de todos los pagos,
 -- -- el número de pagos realizados para esa forma de pago.
 DELIMITER //
-CREATE PROCEDURE 23calculosTipoPago(variable VARCHAR(40))
+CREATE or replace PROCEDURE 23calculosTipoPago(variable VARCHAR(40))
 BEGIN
 select max(total) as "pago maximo", min(total) as "pago minimo",avg(total) as "pago medio", 
 sum(total) as "suma todos pagos", count(id_transaccion) as "n pagos" from pago where forma_pago=variable;
