@@ -37,23 +37,41 @@ SELECT * FROM 24secuencia;
 -- 6) Resuelve el ejercicio anterior pero utilizando un bucle
 -- REPEAT (26secuenciaRepeat).
 DELIMITER //
-CREATE or replace PROCEDURE 25secuenciaWhile(IN valorInicial INT UNSIGNED)
+CREATE or replace PROCEDURE 26secuenciaRepeat(IN valorInicial INT UNSIGNED)
 BEGIN	
 DECLARE contador INT;
 TRUNCATE TABLE 24secuencia;
 SET contador = valorInicial;
-WHILE contador > 0 DO
+REPEAT
 INSERT INTO 24secuencia VALUES (contador); 
 SET contador = contador - 1;
-END WHILE;
+UNTIL contador < 0
+END REPEAT;
 END
 //
 DELIMITER ;
-CALL 25secuenciaWhile(6);
+CALL 26secuenciaRepeat(6);
 SELECT * FROM 24secuencia;
 
 -- 7) Vuelve a resolver el ejercicio pero ahora con un bucle
--- LOOP (27secuenciaLoop).
+-- LOOP (27secuenciaLoop). --no funciona
+DELIMITER //
+CREATE or replace PROCEDURE 27secuenciaLoop(IN valorInicial INT UNSIGNED)
+BEGIN	
+DECLARE contador INT;
+TRUNCATE TABLE 24secuencia;
+SET contador = valorInicial;
+bucle: LOOP
+IF contador > 0 THEN
+LEAVE INSERT INTO 24secuencia VALUES (contador); 
+END IF;
+SET contador = contador - 1;
+END LOOP;
+END
+//
+DELIMITER ;
+CALL 27secuenciaLoop(6);
+SELECT * FROM 24secuencia;
 
 -- 8) Dentro de la base de datos de procedimientos, crea
 -- dos tablas (28par, 28impar). Ambas deben
