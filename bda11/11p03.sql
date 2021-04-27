@@ -1,0 +1,15 @@
+-- 1) Escribe una función (31par) que reciba un entero como
+-- entrada y devuelva TRUE si el número es par o FALSE
+-- en caso contrario.
+-- 2) Escribe una función (32mayor2) que tras recibir dos
+-- enteros, devuelva el mayor de los dos.
+-- 3) Escribe una función (33mayor3) que tras recibir tres
+-- enteros, devuelva el mayor de los tres.
+
+-- 4) Escribe una función (34anyosEntreFechas) que
+-- devuelva como salida el número de años que han
+-- transcurrido entre dos fechas que se reciben como
+-- parámetros de entrada.
+-- Por ejemplo, si pasamos como parámetros de entrada
+-- las fechas 2021-01-01 y 2011-01-01 la función tiene que
+-- devolver que han pasado 10 años.
