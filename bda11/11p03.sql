@@ -64,7 +64,7 @@ select 33mayor3(1, 11, 13);
 -- --devolver que han pasado 10 años.   
 -- --Debes emplear las siguientes funciones:
 -- -- --DATEDIFF: https://mariadb.com/kb/en/datediff/
--- -- --TRUNCATE: https://mariadb.com/kb/en/truncate/
+-- -- --TRUNCATE: https://mariadb.com/kb/en/truncate/ --revisar
 delimiter //
 create or replace function 34anyosEntreFechas(fecha1 date, fecha2 date)
     returns int
@@ -83,7 +83,34 @@ select 34anyosEntreFechas('2020-01-01', '2019-01-01');
 -- --Recuerda que en el ejercicio 17diaSemana mostrabas
 -- --el día de la semana a partir de un número.
 -- --Debes emplear la siguiente función:
--- -- --WEEKDAY: https://mariadb.com/kb/en/weekday/
+-- -- --WEEKDAY: https://mariadb.com/kb/en/weekday/ --revisar
+DELIMITER //
+create or replace function 35diaSemana(diaSemana date)
+    returns varchar(128)
+begin
+    select weekday (diaSemana);
+    declare resultado varchar(128);
+    case diaSemana
+    when 1 then
+        set resultado = "lunes";
+    when 2 then
+        set resultado = "martes";
+    when 3 then
+        set resultado = "miercoles";
+    when 4 then
+        set resultado = "jueves";
+    when 5 then
+        set resultado = "viernes";
+    when 6 then
+        set resultado = "sabado";
+    else
+        set resultado = "domingo";
+    end case;
+end
+//
+DELIMITER ;
+
+call 35diaSemana('2020-09-23');
 
 -- A partir de la base de datos tienda:
 -- 1) Escribe una función (41totalProductos) que
