@@ -64,18 +64,19 @@ select 33mayor3(1, 11, 13);
 -- --devolver que han pasado 10 años.   
 -- --Debes emplear las siguientes funciones:
 -- -- --DATEDIFF: https://mariadb.com/kb/en/datediff/
--- -- --TRUNCATE: https://mariadb.com/kb/en/truncate/ --revisar
+-- -- --TRUNCATE: https://mariadb.com/kb/en/truncate/
 delimiter //
 create or replace function 34anyosEntreFechas(fecha1 date, fecha2 date)
     returns int
 begin
     declare resultado int;
-     	select datediff(fecha1, fecha2) = resultado;
+    set resultado = (datediff(fecha1, fecha2));
+    set resultado = (resultado / 365);
     return resultado;
 end;
 //
 delimiter ;
-select 34anyosEntreFechas('2020-01-01', '2019-01-01');
+select 34anyosEntreFechas('2020-01-01', '2018-01-01');
 
 -- 5) Escribe una función (35diaSemana) que a partir de una
 -- fecha, devuelva el día de la semana mediante texto
@@ -83,54 +84,106 @@ select 34anyosEntreFechas('2020-01-01', '2019-01-01');
 -- --Recuerda que en el ejercicio 17diaSemana mostrabas
 -- --el día de la semana a partir de un número.
 -- --Debes emplear la siguiente función:
--- -- --WEEKDAY: https://mariadb.com/kb/en/weekday/ --revisar
+-- -- --WEEKDAY: https://mariadb.com/kb/en/weekday/
 DELIMITER //
 create or replace function 35diaSemana(diaSemana date)
     returns varchar(128)
 begin
-    select weekday (diaSemana);
     declare resultado varchar(128);
-    case diaSemana
-    when 1 then
+    declare variable int;
+    set variable = (weekday (diaSemana));
+    case variable
+    when 0 then
         set resultado = "lunes";
-    when 2 then
+    when 1 then
         set resultado = "martes";
-    when 3 then
+    when 2 then
         set resultado = "miercoles";
-    when 4 then
+    when 3 then
         set resultado = "jueves";
-    when 5 then
+    when 4 then
         set resultado = "viernes";
-    when 6 then
+    when 5 then
         set resultado = "sabado";
-    else
+    when 6 then
         set resultado = "domingo";
-    end case;
-end
+    else
+        set resultado = "valor no valido";
+     end case;
+   return resultado;
+end;
 //
 DELIMITER ;
 
-call 35diaSemana('2020-09-23');
+select 35diaSemana('1999-09-23');
 
 -- A partir de la base de datos tienda:
 -- 1) Escribe una función (41totalProductos) que
 -- devuelva el número total de productos que hay en la
--- tabla productos.
+-- tabla productos. --revisar
+DELIMITER //
+create or replace function 41totalProductos()
+    returns int
+begin
+    declare resultado int;
+    set resultado = count(codigo) from tienda.producto;
+    return resultado;
+end;
+//
+DELIMITER ;
+
+select 41totalProductos();
 
 -- 2) Escribe una función
 -- (42precioMedioPorFabricante) que devuelva el
 -- valor medio del precio de los productos de un
 -- determinado fabricante que se recibirá como
 -- parámetro de entrada.
--- --El parámetro de entrada será el nombre del fabricante.
+-- --El parámetro de entrada será el nombre del fabricante. --revisar
+DELIMITER //
+create or replace function 42precioMedioPorFabricante(nombre varchar(100))
+    returns int
+begin
+    declare resultado int;
+    set resultado = avg(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
+    return resultado;
+end;
+//
+DELIMITER ;
+
+select 42precioMedioPorFabricante('Asus');
 
 -- 3) Escribe una función
 -- (43precioMaxPorFabricante) que devuelva el
 -- valor máximo del precio de los productos de un
 -- determinado fabricante que se recibirá como parámetro de entrada.
+DELIMITER //
+create or replace function 43precioMaxPorFabricante(nombre varchar(100))
+    returns int
+begin
+    declare resultado int;
+    set resultado = max(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
+    return resultado;
+end;
+//
+DELIMITER ;
+
+select 43precioMaxPorFabricante('Asus');
 
 -- 4) Escribe una función
 -- (44precioMinPorFabricante) que devuelva el
 -- valor mínimo del precio de los productos de un
 -- determinado fabricante que se recibirá como
 -- parámetro de entrada.
+DELIMITER //
+create or replace function 44precioMinPorFabricante(nombre varchar(100))
+    returns int
+begin
+    declare resultado int;
+    set resultado = min(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
+    return resultado;
+end;
+//
+DELIMITER ;
+
+select 44precioMinPorFabricante('Asus');
