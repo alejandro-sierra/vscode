@@ -3,13 +3,13 @@
 -- en caso contrario.
 delimiter //
 create or replace function 31par(numero int)
-    returns varchar(50)
+    returns boolean
 begin
     declare resultado varchar(50);
         if numero % 2 = 0 then
-            set resultado = "TRUE";
+            set resultado = TRUE;
         else
-            set resultado = "FALSE";
+            set resultado = FALSE;
         end if;
     return resultado;
 end;
@@ -70,8 +70,8 @@ create or replace function 34anyosEntreFechas(fecha1 date, fecha2 date)
     returns int
 begin
     declare resultado int;
-    set resultado = (datediff(fecha1, fecha2));
-    set resultado = (resultado / 365);
+    set resultado = (datediff(fecha1, fecha2)); --dias 
+    set resultado = truncate(resultado / 365); --lo pasamos a anyos
     return resultado;
 end;
 //
@@ -120,13 +120,14 @@ select 35diaSemana('1999-09-23');
 -- A partir de la base de datos tienda:
 -- 1) Escribe una función (41totalProductos) que
 -- devuelva el número total de productos que hay en la
--- tabla productos. --revisar
+-- tabla productos.
 DELIMITER //
 create or replace function 41totalProductos()
     returns int
 begin
     declare resultado int;
-    set resultado = count(codigo) from tienda.producto;
+    set resultado = (select count(codigo) from tienda.producto);
+    --select count(codigo) into resultado from producto;    
     return resultado;
 end;
 //
@@ -145,7 +146,8 @@ create or replace function 42precioMedioPorFabricante(nombre varchar(100))
     returns int
 begin
     declare resultado int;
-    set resultado = avg(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
+    set resultado = (select avg(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre);
+    --select avg(p.precio) into resultado from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
     return resultado;
 end;
 //
@@ -162,7 +164,8 @@ create or replace function 43precioMaxPorFabricante(nombre varchar(100))
     returns int
 begin
     declare resultado int;
-    set resultado = max(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
+    set resultado = (select max(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre);
+    select max(p.precio) into resultado from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre);
     return resultado;
 end;
 //
@@ -180,7 +183,8 @@ create or replace function 44precioMinPorFabricante(nombre varchar(100))
     returns int
 begin
     declare resultado int;
-    set resultado = min(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
+    set resultado = (select min(p.precio) from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre);
+    --select min(p.precio) into resultado from producto p join fabricante f on p.codigo_fabricante=f.codigo where f.nombre=nombre;
     return resultado;
 end;
 //
