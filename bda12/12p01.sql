@@ -25,21 +25,20 @@ CREATE TABLE alumnos(
 -- intenta insertar una fila que contiene una clave primaria
 -- repetida. --ERROR 1062 
 DELIMITER //
-CREATE or replace PROCEDURE insertarAlumno(IN id, VARCHAR(50) nombre,
-    VARCHAR(50) apellido1, VARCHAR(50) apellido2)
+CREATE or replace PROCEDURE insertarAlumno(INT id VARCHAR(50) nombre VARCHAR(50) apellido1 VARCHAR(50) apellido2)
 BEGIN
-    DECLARE CONTINUE HANDLER FOR 1062 set @error = 0;   
+    DECLARE CONTINUE HANDLER FOR 1062     
         BEGIN
-
-        
+            set @error = 0;
         END;
-    INSERT INTO alumnos values (id,nombre,apellido1,apellido2);
+    INSERT INTO alumnos VALUES (id,nombre,apellido1,apellido2);
     set @error = 1;
 END
 //
 DELIMITER ;
 CALL insertarAlumno(1,"Alejandro","Ballesta","Sierra");
 SELECT * FROM alumnos;
+
 
 
 -- 2.- No encontrado
@@ -49,7 +48,6 @@ SELECT * FROM alumnos;
 -- caso de que no se encuentre, devolverá "Cliente
 -- no encontrado".
 -- *1) Utiliza if para contar si ha encontrado al cliente
-
 -- 2) Vuelve a hacer el ejercicio anterior
 -- (nombreClienteHandler) pero ahora utiliza un
 -- manejador de errores (sin usar if)
