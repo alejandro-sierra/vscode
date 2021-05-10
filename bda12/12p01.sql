@@ -25,9 +25,9 @@ CREATE TABLE alumnos(
 -- intenta insertar una fila que contiene una clave primaria
 -- repetida. --ERROR 1062 
 DELIMITER //
-CREATE or replace PROCEDURE insertarAlumno(INT id VARCHAR(50) nombre VARCHAR(50) apellido1 VARCHAR(50) apellido2)
+CREATE or replace PROCEDURE insertarAlumno(id INT, nombre VARCHAR(50), apellido1 VARCHAR(50), apellido2 VARCHAR(50))
 BEGIN
-    DECLARE CONTINUE HANDLER FOR 1062     
+    DECLARE CONTINUE HANDLER FOR 23000     
         BEGIN
             set @error = 0;
         END;
@@ -37,9 +37,8 @@ END
 //
 DELIMITER ;
 CALL insertarAlumno(1,"Alejandro","Ballesta","Sierra");
+
 SELECT * FROM alumnos;
-
-
 
 -- 2.- No encontrado
 -- A partir de la base de datos de jardineria:
@@ -48,6 +47,44 @@ SELECT * FROM alumnos;
 -- caso de que no se encuentre, devolverá "Cliente
 -- no encontrado".
 -- *1) Utiliza if para contar si ha encontrado al cliente
+DELIMITER //
+CREATE or replace PROCEDURE nombreClienteIf(codigo INT)
+BEGIN
+    declare resultado varchar(50);
+    set resultado = (select nombre_cliente from cliente where codigo_cliente=variable);
+    if exists resultado
+    
+    
+END
+//
+DELIMITER ;
+CALL nombreClienteIf();
+
+SELECT * FROM alumnos;
+
+DELIMITER //
+CREATE or replace PROCEDURE nombreClienteIf(codigo int)
+BEGIN
+ DECLARE nombreCliente VARCHAR(50);
+ SET nombreCliente= (SELECT nombre_cliente 
+   FROM cliente WHERE codigo_cliente = codigo);
+   
+   if EXISTS (SELECT nombre_cliente 
+   FROM cliente WHERE codigo_cliente = codigo)then 
+   BEGIN 
+   SELECT nombreCliente;
+   END;
+ ELSE 
+  begin
+   SELECT nombreCliente = 'Cliente no encontrado';
+  END;
+ END if;
+   END;
+//
+DELIMITER ;
+CALL nombreClienteIf(16);
+CALL nombreClioenteIf(40);
+
 -- 2) Vuelve a hacer el ejercicio anterior
 -- (nombreClienteHandler) pero ahora utiliza un
 -- manejador de errores (sin usar if)
