@@ -31,23 +31,23 @@ repetida. --ERROR 1062
 */
 
 DELIMITER //
-CREATE or replace PROCEDURE insertarAlumno(id INT, nombre VARCHAR(50), apellido1 VARCHAR(50), apellido2 VARCHAR(50))
+CREATE or replace PROCEDURE insertarAlumno(id INT, nombre VARCHAR(50), apellido1 VARCHAR(50), apellido2 VARCHAR(50), out error int)
 BEGIN
-    DECLARE CONTINUE HANDLER FOR 23000     
-        BEGIN
-            set @error = 0;
-        END;
+    -- DECLARE EXIT HANDLER FOR SQLSTATE 23000 set @error = 1;
+    -- BEGIN
+    --     set @error = 1;
+    -- END;
+    DECLARE EXIT HANDLER FOR 1062 set @error = 1;
     INSERT INTO alumnos VALUES (id,nombre,apellido1,apellido2);
-    set @error = 1;
+    set @error = 0;
 END;
 //
 DELIMITER ;
-CALL insertarAlumno(1,"Alejandro","Ballesta","Sierra");
-
-SELECT * FROM alumnos;
+CALL insertarAlumno(1,"Alejandro","Ballesta","Sierra",@error);
+select @error;
 
 /*
-2.- No encontrado
+2.- No encontrado **REPASAR**
 A partir de la base de datos de jardineria:
 1) Escribe un procedimiento (nombreClienteIf) que
 muestre el nombre de un cliente dado su código. En
@@ -60,9 +60,9 @@ DELIMITER //
 CREATE or replace PROCEDURE nombreClienteIf(codigo INT)
 BEGIN
     declare resultado varchar(50);
-    set resultado = (select nombre_cliente from cliente where codigo_cliente = codigo);
+    select nombre_cliente into resultado from cliente where codigo_cliente = codigo);
 
-    if exists (select nombre_cliente from cliente where codigo_cliente = codigo) then
+    if exists resultado then
         begin
             select resultado;
         end;
@@ -87,12 +87,12 @@ mediante SELECT ... INTO
 */
 
 DELIMITER //
-CREATE or replace PROCEDURE nombreClienteHandler(codigo INT)
+CREATE or replace PROCEDURE nombreClienteHandler(codigo INT UNSIGNED)
 BEGIN
     declare resultado varchar(50);
     set resultado = (select nombre_cliente from cliente where codigo_cliente = codigo);
 
-    DECLARE EXIT HANDLER FOR NOT FOUND     
+    DECLARE CONTINUE HANDLER FOR NOT FOUND     
         begin
             set resultado = 'Cliente no encntrado';
             select resultado;
@@ -100,6 +100,7 @@ BEGIN
         begin
             select resultado;
         end;
+        SELECT resultado
 END;
 //
 DELIMITER ;
@@ -117,18 +118,20 @@ como parámetros.
 */
 
 DELIMITER //
-CREATE or replace PROCEDURE insertarAlumno(codigo varchar(10), ciudad VARCHAR(30), pais VARCHAR(50), codigoPostal VARCHAR(10), telefono VARCHAR(20), direccion VARCHAR(50))
+CREATE or replace PROCEDURE insertarAlumno(codigo varchar(10), ciudad VARCHAR(30), pais VARCHAR(50), codigoPostal VARCHAR(10)
+        , telefono VARCHAR(20), direccion VARCHAR(50))
 BEGIN
     DECLARE CONTINUE HANDLER FOR 1062     
         BEGIN
             update oficina set codigo_oficina = codigo, ciudad = ciudad,pais = pais, region = null
-            , codigo_postal = codigoPostal, telefono = telefono, linea_direccion1= direccion, linea_direccion1 = null;
+            , codigo_postal = codigoPostal, telefono = telefono, linea_direccion1= direccion, linea_direccion2 = null 
+           		where codigo_oficina = codigo;
         END;
     INSERT INTO oficina VALUES (codigo,ciudad,pais,null,codigoPostal,telefono,direccion,null);
 END;
 //
 DELIMITER ;
-CALL insertarAlumno("SPA","Barcelona","España","03206","+ 34 654 645 757", "Avenida de la Libertad");
+CALL insertarAlumno("ESP","Madrid","España","03206","+ 34 654 645 757", "Avenida de la Libertad");
 
 /*
 4.- Transacciones
@@ -193,6 +196,7 @@ SELECT * FROM producto;
 
 -- 8. Hacemos un ROLLBACK
 ROLLBACK;
+Al hacer el rollback, pone el autocommit al 1. (no es seguro probarlo) 
 
 -- 9.  ¿Qué devolverá esta consulta? Justifique su respuesta.
 SELECT * FROM producto;
@@ -216,7 +220,7 @@ misma transición.
 */
 
 /*
-6.- Procedimiento transaccional
+6.- Procedimiento transaccional **PERDIR A ELIAS**
 -Crea la base de datos cine con las siguientes tablas:
 --Tabla cuentas:
 ---idCuenta: entero sin signo (pk).
@@ -260,20 +264,25 @@ CREATE TABLE entradas(
 
 );
 
-
 DELIMITER //
 CREATE or replace PROCEDURE comprarEntrada(nifPro varchar(9), idCuentaPro int, idButacaPro int, out error int)
 BEGIN
-    DECLARE CONTINUE HANDLER FOR 1062, 1264     
+    DECLARE EXIT HANDLER FOR 1062, 1264     
         BEGIN
-            set error = 0;
+            set error = 1;
             rollback;
         END;
     start transaction;
-    update cuentas.saldo set saldo=-5 where idCuenta = idCuentaPro;
-    insert into entradas values (idButacaPro,nifPro);
+        update saldo set saldo=-5 where idCuenta = idCuentaPro;
+        insert into entradas values (idButacaPro,nifPro);
+        set error = 0;
     commit;
 END;
 //
 DELIMITER ;
-CALL comprarEntrada ("12345678A",1,1,@error);
+
+insert into cuentas (1,20);
+insert into entradas (1,"12345678A");
+
+
+CALL comprarEntrada ("12345678B",1,2,@error);
