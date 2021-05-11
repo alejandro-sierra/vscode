@@ -273,7 +273,8 @@ BEGIN
             rollback;
         END;
     start transaction;
-        update saldo set saldo=-5 where idCuenta = idCuentaPro;
+        ---comprobar que la cuenta existe
+        update saldo set saldo = saldo-5 where idCuenta = idCuentaPro;
         insert into entradas values (idButacaPro,nifPro);
         set error = 0;
     commit;
