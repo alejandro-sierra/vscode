@@ -41,6 +41,23 @@ CREATE TABLE alumnos(
 );
 
 
+alter table alumnos add edad int;
+
+
+delimiter //
+create or replace function calcularEdad(nacido date)
+    returns int
+begin
+    declare resultado int;
+    declare fechaActual date;
+    select current_date() into fechaActual;
+    set resultado = (datediff(nacido, fechaActual)); 
+    set resultado = truncate(resultado / 365); 
+    return resultado;
+end;
+//
+delimiter ;
+select calcularEdad('1999-09-23');
 
 /*
 8.- Cursores - email
