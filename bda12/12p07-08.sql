@@ -65,19 +65,20 @@ insert into alumnos values (2,'Alejandro','Ballesta','Sierra','1999-09-23',null)
 insert into alumnos values (3,'Pedro','Garcia','Rivera','1981-01-01',null);
 */
 
-delimiter // --revisar
+delimiter // --revisar (pedir a volta)
 create or replace procedure actualizarColumnaEdad()
 begin
     declare salir int default false;
-    declare fechaCursor int;
-    declare cur cursor for select fechaNacimiento from cursores.alumnos;
+    declare fechaNacimientoP int;
+    declare edadP int;
+    declare cur cursor for select id,fechaNacimiento from cursores.alumnos;
     declare continue handler for not found set salir = true;
 
     open cur;
 
     while salir = false do
-        fetch cur into fechaCursor;
-        insert into alumnos set edad="select calcularEdad('fechaCursor')";
+        fetch cur into id,fechaNacimientoP;
+        insert into alumnos set edad="select calcularEdad('fechaNacimientoP')";
     end while;
 
     close cur; 
@@ -122,15 +123,15 @@ begin
     declare apellido2 varchar(50);
     declare correo varchar(50);
 
-    set nombre = (select substring(nombreF,0,1));
-    set apellido1 = (select substring(apellido1F,0,3));
-    set apellido2 = (select substring(apellido2F,0,3));
-    set correo = lower((concat ('nombre','apellido1','apellido2','@','dominioF','.com')));
+    set nombre = select left(nombreF,0,1);
+    set apellido1 = select substring(apellido1F,0,3);
+    set apellido2 = select substring(apellido2F,0,3);
+    set correo = lower((concat (nombre,apellido1,apellido2,'@',dominioF)));
     return correo;
 end;
 //
 delimiter ;
-select crearEmail('Alejandro','Ballesta','Sierra','gmail');
+select crearEmail('Alejandro','Ballesta','Sierra','gmail.com');
 
 
 alter table alumnos add email varchar(50);
