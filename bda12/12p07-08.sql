@@ -68,26 +68,25 @@ insert into alumnos values (3,'Pedro','Garcia','Rivera','1981-01-01',null);
 delimiter // --revisar (pedir a volta)
 create or replace procedure actualizarColumnaEdad()
 begin
-    declare salir int default false;
+    declare salir int default 0;
     declare fechaNacimientoP int;
     declare edadP int;
     declare cur cursor for select id,fechaNacimiento from cursores.alumnos;
-    declare continue handler for not found set salir = true;
+
+    declare exit handler for not found close cur;
 
     open cur;
 
-    while salir = false do
-        fetch cur into id,fechaNacimientoP;
-        insert into alumnos set edad="select calcularEdad('fechaNacimientoP')";
+    while salir = 0 do
+        fetch cur into idC,fechaNacimientoC;
+        insert into alumnos set edad="select calcularEdad('fechaNacimientoC')" id=idC;
     end while;
-
-    close cur; 
 end;
 //
 delimiter ;
 CALL actualizarColumnaEdad();
 
-/*
+/********************************************************
 8.- Cursores - email
 -Crea una función (crearEmail) que a partir del
 nombre, apellido1, apellido2 y dominio,
