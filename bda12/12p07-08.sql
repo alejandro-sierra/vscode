@@ -156,4 +156,31 @@ begin
 end;
 //
 delimiter ;
+
+-- Ejercicio Volta
+DELIMITER //
+create or replace procedure actualizarColumnaEmail(dominio varchar(50))
+begin
+    declare emailP varchar(255);
+    declare idP int;
+    declare nombreP varchar(50);
+    declare apellido1P varchar(50);
+    declare apellido2P varchar(50);
+    declare salir int default 0;
+    declare curEmail cursor for
+    select id, nombre, apellido1, apellido2 from alumnos;
+
+    declare exit handler for not found close curEmail;
+    open curEmail;
+    
+    while salir = 0 do
+        fetch curEmail into idP, nombreP, apellido1P, apellido2P;
+        set emailP = crearEmail(nombreP, apellido1P, apellido2P, dominio);
+        update alumnos set email = emailP where id = idP;
+    end while;
+end
+
+//
+DELIMITER ;
+
 CALL actualizarColumnaEmail();
