@@ -9,24 +9,6 @@ columnas:
 --apellido1 (cadena de caracteres)
 --apellido2 (cadena de caracteres)
 --fechaNacimiento (fecha)
-
--Tras crear la tabla se decide añadir una nueva
-columna llamada edad. Escribe la sentencia SQL
-necesaria para modificar la tabla y añadir la nueva
-columna.
-
--Escribe una función llamada calcularEdad que
-reciba una fecha y devuelva el número de años que
-han pasado desde la fecha actual hasta la fecha
-pasada como parámetro.
-
--Escribe un procedimiento
-(actualizarColumnaEdad) que actualice la edad
-de todos los alumnos que ya existen en la tabla.
---Utiliza un cursor para recorrer la tabla y modificar cada
-alumno.
---Este procedimiento deberá utilizar la función
-calcularEdad.
 */
 DROP DATABASE cursores;
 CREATE DATABASE IF NOT EXISTS cursores;
@@ -40,9 +22,21 @@ CREATE TABLE alumnos(
     fechaNacimiento DATE
 );
 
-
+/*
+-Tras crear la tabla se decide añadir una nueva
+columna llamada edad. Escribe la sentencia SQL
+necesaria para modificar la tabla y añadir la nueva
+columna.
+*/
 alter table alumnos add edad int;
 
+
+/*
+-Escribe una función llamada calcularEdad que
+reciba una fecha y devuelva el número de años que
+han pasado desde la fecha actual hasta la fecha
+pasada como parámetro.
+*/
 
 delimiter //
 create or replace function calcularEdad(nacido date)    
@@ -57,14 +51,15 @@ end;
 delimiter ;
 select calcularEdad('1999-09-23');
 
-/* DATOS DE PRUEBAS
-insert into alumnos values (null(id),nombre,apellido1,apellido2,fechaNaciiento,null(edad));
-
-insert into alumnos values (1,'Elena','Aleksandrova','Gesheva','1998-02-21',null);
-insert into alumnos values (2,'Alejandro','Ballesta','Sierra','1999-09-23',null);
-insert into alumnos values (3,'Pedro','Garcia','Rivera','1981-01-01',null);
+/*
+-Escribe un procedimiento
+(actualizarColumnaEdad) que actualice la edad
+de todos los alumnos que ya existen en la tabla.
+--Utiliza un cursor para recorrer la tabla y modificar cada
+alumno.
+--Este procedimiento deberá utilizar la función
+calcularEdad.
 */
-
 delimiter //
 create or replace procedure actualizarColumnaEdad()
 begin
@@ -87,7 +82,17 @@ end;
 delimiter ;
 CALL actualizarColumnaEdad();
 
-/********************************************************
+/* DATOS DE PRUEBAS
+insert into alumnos values (null(id),nombre,apellido1,apellido2,fechaNaciiento,null(edad));
+
+insert into alumnos values (1,'Elena','Aleksandrova','Gesheva','1998-02-21',null);
+insert into alumnos values (2,'Alejandro','Ballesta','Sierra','1999-09-23',null);
+insert into alumnos values (3,'Pedro','Garcia','Rivera','1981-01-01',null);
+*/
+
+
+
+/********************************************************************************************
 8.- Cursores - email
 -Crea una función (crearEmail) que a partir del
 nombre, apellido1, apellido2 y dominio,

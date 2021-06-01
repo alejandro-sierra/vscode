@@ -1,46 +1,80 @@
-CREATE TABLE alumnos (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    apellido1 VARCHAR(50) NOT NULL,
-    apellido2 VARCHAR(50), 
-    nota FLOAT
+/*
+10.- Trigger Before
+-Crea un trigger (triggerCrearEmailBeforeInsert) sobre la
+tabla alumnos, para que si el email a insertar es
+nulo le asigne uno automáticamente
+-Debes utilizar la función crearEmail con el
+dominio 'noemail.com'.
+*/
+delimiter //
+create or replace trigger triggerCrearEmailBeforeInsert
+  before insert on alumnos for each row
+begin
+	if new.email is null then
+		set new.email=crearEmail(new.nombre,new.apellido1,new.apellido2,'noemail.com');
+	end if;
+end
+//
+
+/*
+11.- Trigger After I
+-Crea un trigger (triggerGuardarEmailAfterUpdate) sobre la
+tabla alumnos, para que cada vez que se modifica el
+email, inserte un nuevo registro en la tabla
+logCambiosEmail, cuyos campos son:
+--id: clave primaria (entero autonumérico)
+--idAlumno: id del alumno (entero)
+--fechaHora: marca de tiempo con el instante del
+cambio (fecha y hora)
+--oldEmail: valor anterior del email (cadena de
+caracteres)
+--newEmail: nuevo valor con el que se ha actualizado
+*/
+create table logCambiosEmail(
+    id int primary key auto_increment,
+    idAlumno int,
+    fechaHora date,
+    oldEmail varchar(50),
+    newEmail varchar(50)
 );
 
-DELIMITER //
-DROP TRIGGER IF EXISTS triggerCheckNotaBeforeInsert //
-CREATE TRIGGER triggerCheckNotaBeforeInsert
-  BEFORE INSERT ON alumnos FOR EACH ROW
-BEGIN
-  -- NEW referencia al nuevo registro
-  IF NEW.nota < 0 THEN
-    set NEW.nota = 0;
-  ELSEIF NEW.nota > 10 THEN
-    set NEW.nota = 10;
-  END IF;
-END
+delimiter //
+create or replace trigger triggerGuardarEmailAfterUpdate
+  after update on alumnos for each row
+begin
+	if old.email <> new.email then
+  		insert into logCambiosEmail values (null,old.id,now(),old.email,new.email);
+  	end if;
+end
 //
 
-DROP TRIGGER IF EXISTS triggerCheckNotaBeforeUpdate //
-CREATE TRIGGER triggerCheckNotaBeforeUpdate
-  BEFORE UPDATE ON alumnos FOR EACH ROW
-BEGIN
-  IF NEW.nota < 0 THEN
-    set NEW.nota = 0;
-  ELSEIF NEW.nota > 10 THEN
-    set NEW.nota = 10;
-  END IF;
-END
+/*
+-Crea un trigger (triggerGuardarAlumnosAfterDelete) sobre la
+tabla alumnos, para que cada vez que se elimine un
+alumno, inserte un nuevo registro en la tabla
+logAlumnosEliminados, cuyos campos son:
+--id: clave primaria (entero autonumérico)
+--idAlumno: id del alumno (entero)
+--fechaHora: marca de tiempo
+--nombre: nombre del alumno (cadena de caracteres)
+--apellido1: 1er apellido (cadena de caracteres)
+--apellido2: 2º apellido (cadena de caracteres)
+--email: email del alumno (cadena de caracteres)
+*/
+create table logAlumnosEliminados(
+    id int primary key auto_increment,
+    idAlumno int,
+    fechaHora date,
+    nombre varchar(50),
+    apellido1 varchar(50),
+    apellido2 varchar(50),
+    email varchar(50)
+);
+
+delimiter //
+create or replace trigger triggerGuardarAlumnosAfterDelete
+  after delete on alumnos for each row
+begin
+  insert into logAlumnosEliminados values (null,old.id,now(),old.nombre,old.apellido1,old.apellido2,old.email);
+end
 //
-
-DELIMITER ;
-INSERT INTO alumnos VALUES (1, 'Ana', 'Sánchez', 'Pérez', -1);
-INSERT INTO alumnos VALUES (2, 'Bruno', 'García', 'Morales', 12);
-INSERT INTO alumnos VALUES (3, 'Carlos', 'Serrano', 'López', 8.5);
-
-SELECT * FROM alumnos;
-
-UPDATE alumnos SET nota = -4 WHERE id = 3;
-UPDATE alumnos SET nota = 14 WHERE id = 3;
-UPDATE alumnos SET nota = 9.5 WHERE id = 3;
-
-SELECT * FROM alumnos;
