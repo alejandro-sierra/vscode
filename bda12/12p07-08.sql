@@ -65,12 +65,13 @@ insert into alumnos values (2,'Alejandro','Ballesta','Sierra','1999-09-23',null)
 insert into alumnos values (3,'Pedro','Garcia','Rivera','1981-01-01',null);
 */
 
-delimiter // --revisar (pedir a volta)
+delimiter //
 create or replace procedure actualizarColumnaEdad()
 begin
     declare salir int default 0;
     declare fechaNacimientoP int;
     declare edadP int;
+    declare idAlumnoP int;
     declare cur cursor for select id,fechaNacimiento from cursores.alumnos;
 
     declare exit handler for not found close cur;
@@ -78,8 +79,8 @@ begin
     open cur;
 
     while salir = 0 do
-        fetch cur into idC,fechaNacimientoC;
-        insert into alumnos set edad="select calcularEdad('fechaNacimientoC')" id=idC;
+        fetch cur into idAlumnoP,fechaNacimientoP;
+        update alumnos set edad=calcularEdad(fechaNacimientoP) where id=idAlumnoP;
     end while;
 end;
 //
@@ -100,18 +101,6 @@ salida. El formato del email de salida es el siguiente:
 
 -Ejemplo: crearEmail('Aitor', 'Medrano', 'Escrig',
 'gva.es') devolvería amedesc@gva.es
-
--Crea un procedimiento
-(actualizarColumnaEmail) que permita crear un
-email para todos los alumnmos que ya existen en la
-tabla.
---Debes utilizar la función crearEmail
-
--Crea un procedimiento
-(crearListaEmailsAlumnos) que devuelva la lista
-de emails de la tabla alumnos separados por un
-punto y coma.
---Ejemplo:ana@iesseveroochoa.net;bruno@iesseveroochoa.net;carlos@iesseveroochoa.net
 */
 delimiter //
 create or replace function crearEmail(nombreF varchar(50),apellido1F varchar(50),apellido2F varchar(50),dominioF varchar(50))  
@@ -122,10 +111,10 @@ begin
     declare apellido2 varchar(50);
     declare correo varchar(50);
 
-    set nombre = select left(nombreF,0,1);
-    set apellido1 = select substring(apellido1F,0,3);
-    set apellido2 = select substring(apellido2F,0,3);
-    set correo = lower((concat (nombre,apellido1,apellido2,'@',dominioF)));
+    set nombre = left(nombreF,1);
+    set apellido1 = substring(apellido1F,1,3);
+    set apellido2 = substring(apellido2F,1,3);
+    set correo = lower(concat(nombre,apellido1,apellido2,'@',dominioF));
     return correo;
 end;
 //
@@ -135,51 +124,66 @@ select crearEmail('Alejandro','Ballesta','Sierra','gmail.com');
 
 alter table alumnos add email varchar(50);
 
-
-delimiter // --revisar
-create or replace procedure actualizarColumnaEmail()
-begin
-    declare salir int default false;
-    declare fechaCursor int;
-    declare cur cursor for select fechaNacimiento from cursores.alumnos;
-    declare continue handler for not found set salir = true;
-
-    open cur;
-
-    while salir = false do
-        fetch cur into fechaCursor;
-        insert into alumnos set edad="select calcularEdad('fechaCursor')";
-    end while;
-
-    close cur; 
-end;
-//
-delimiter ;
-
--- Ejercicio Volta
-DELIMITER //
+/*
+-Crea un procedimiento
+(actualizarColumnaEmail) que permita crear un
+email para todos los alumnmos que ya existen en la
+tabla.
+--Debes utilizar la función crearEmail
+*/
+delimiter //
 create or replace procedure actualizarColumnaEmail(dominio varchar(50))
 begin
-    declare emailP varchar(255);
+    declare salir int default 0;
     declare idP int;
     declare nombreP varchar(50);
     declare apellido1P varchar(50);
     declare apellido2P varchar(50);
-    declare salir int default 0;
-    declare curEmail cursor for
-    select id, nombre, apellido1, apellido2 from alumnos;
-
-    declare exit handler for not found close curEmail;
-    open curEmail;
+    declare cur cursor for select id,nombre,apellido1,apellido2 from cursores.alumnos;
     
+    declare exit handler for not found close cur;
+
+    open cur;
+
     while salir = 0 do
-        fetch curEmail into idP, nombreP, apellido1P, apellido2P;
-        set emailP = crearEmail(nombreP, apellido1P, apellido2P, dominio);
-        update alumnos set email = emailP where id = idP;
+        fetch cur into idP,nombreP,apellido1P,apellido2P;
+        update alumnos set email=crearEmail(nombreP,apellido1P,apellido2P,dominio) where id=idP;
     end while;
-end
-
+end;
 //
-DELIMITER ;
+delimiter ;
 
-CALL actualizarColumnaEmail();
+CALL actualizarColumnaEmail("gmail.com");
+
+/*
+-Crea un procedimiento
+(crearListaEmailsAlumnos) que devuelva la lista
+de emails de la tabla alumnos separados por un
+punto y coma.
+--Ejemplo:ana@iesseveroochoa.net;bruno@iesseveroochoa.net;carlos@iesseveroochoa.net
+*/
+delimiter //
+create or replace procedure crearListaEmailsAlumnos()
+begin
+    declare salir int default 0;
+    declare emailP varchar(50);
+    declare resultado varchar(256) default " ";
+    declare cur cursor for select email from cursores.alumnos;
+    
+    declare exit handler for not found
+   	begin
+	    close cur;
+	    select resultado;
+	end;
+
+    open cur;
+
+    while salir = 0 do
+        fetch cur into emailP;
+        set resultado = concat(resultado,emailP,';');
+    end while;
+end;
+//
+delimiter ;
+
+call crearListaEmailsAlumnos();
