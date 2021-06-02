@@ -33,7 +33,7 @@ caracteres)
 create table logCambiosEmail(
     id int primary key auto_increment,
     idAlumno int,
-    fechaHora date,
+    fechaHora timestamp,
     oldEmail varchar(50),
     newEmail varchar(50)
 );
@@ -64,7 +64,7 @@ logAlumnosEliminados, cuyos campos son:
 create table logAlumnosEliminados(
     id int primary key auto_increment,
     idAlumno int,
-    fechaHora date,
+    fechaHora timestamp,
     nombre varchar(50),
     apellido1 varchar(50),
     apellido2 varchar(50),
