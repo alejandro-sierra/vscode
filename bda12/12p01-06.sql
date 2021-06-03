@@ -62,15 +62,11 @@ BEGIN
     declare resultado varchar(50);
     select nombre_cliente into resultado from cliente where codigo_cliente = codigo);
 
-    if exists resultado then
-        begin
-            select resultado;
-        end;
+    if resultado is null then
+        set resultado = 'Cliente no encntrado';
+        select resultado;
     else
-        begin
-            set resultado = 'Cliente no encntrado';
-            select resultado;
-        end;
+        select resultado;
     end if;
 END;
 //
