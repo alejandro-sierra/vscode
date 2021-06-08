@@ -192,3 +192,43 @@ end;
 delimiter ;
 
 call crearListaEmailsAlumnos();
+
+
+
+/*CURSORES*/
+declare cur01 cursor for select...;
+
+open cur01;
+
+fetch cur01 into variable;
+
+close cur01;
+
+/*HANDLER*/
+declare [continue||exit] for [error | not found ]...;
+begin
+end;
+
+/*WHILE and UNTIL*/
+while condicion do
+end while;
+
+repeat
+
+until condicion;
+end repeat;
+
+/*TRANSACCION*/
+start transaction;
+
+commit;
+
+rollback;
+
+/*TRIGGER*/
+create or replace trigger nombreTrigger
+    [after | before] [insert | delete | update ] on tabla for each row
+
+
+create or replace trigger triggerGuardarAlumnosAfterDelete
+  after delete on alumnos for each row
