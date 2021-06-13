@@ -37,7 +37,7 @@ call 12posNegCero(0);
 -- para que tenga un parámetro de entrada, con el valor un
 -- número real, y un parámetro de salida con el resultado.
 DELIMITER //
-create or replace procedure 12posNegCero(in numero int, out resultado varchar(128))
+create or replace procedure 13posNegCeroOut(in numero int, out resultado varchar(128))
 begin
     declare resultado varchar(128);
     if numero < 0 then
@@ -52,7 +52,7 @@ end
 //
 DELIMITER ;
 
-call 12posNegCero(12);
+call 13posNegCeroOut(12,@resultado);
 
 -- 4) Escribe un procedimiento (14nota) que reciba un número
 -- real de entrada, que representa el valor de la nota de un
